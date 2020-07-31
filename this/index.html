@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+    Function.prototype.call1 = function (...args) {
+          // 将参数拆解为数组
+          // const args = Array.prototype.slice.call(arguments)
+
+          // 获取 this（数组第一项）
+          let t = args.shift();
+          t.fn = this;
+          const res = args.length > 0 ? t.fn(...args) : t.fn;
+          console.log(res);
+          return res;
+          // return function () {
+          //   return self.apply(t, args);
+          // };
+        };
+      function create(Con, ...args) {
+        let obj = {};
+        obj.__proto__ = Con.prototype;
+        let result = Con.call1(obj, ...args);
+        
+        console.log(result instanceof Object);
+        // console.log(obj);
+        // return obj;
+        return result instanceof Object ? result : obj;
+      }
+
+      function Test(name, age, fn) {
+        this.name = name; //Con.apply(obj, args); 改变了 this的指向，相当于 obj.name = name
+        this.age = age;
+      }
+      Test.prototype.sayName = function () {
+      };
+      console.log();
+
+      const x = create(Function, 'array')
+      console.log(x, 'x.name');
+      // const a = create(Test, "yck", 26); 
+      // console.log(a.age);
+      // a.sayName();
+
+      // 创建一个空对象 obj;
+      // 将新创建的空对象的隐式原型指向其构造函数的显示原型。
+      // 使用 apply/call 改变 this 的指向
+      // 如果无返回值或者返回一个非对象值，则将 obj 返回作为新对象；如果返回值是一个新对象的话那么直接直接返回该对象。
+    </script>
+  </body>
+</html>

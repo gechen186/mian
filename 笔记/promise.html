@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+
+/* 
+    then/catch 都是正常返回 resolved，里边有报错则返回 rejected
+    then/catch 是根据 resolved/rejected来进行触发，resolved触发 then，rejected触发 catch
+    如果then中有报错 会返回 rejected
+    如果catch中没有报错 会返回 resolved
+    
+ */
+
+// const p1 = Promise.resolve().then(()=>{
+//   return 100
+// })
+// p1.then(()=>{
+//   console.log(100);
+// })
+
+// const p2 = Promise.resolve().then(()=>{
+//   throw new Error('err100')
+// })
+// p2.then(()=>{
+//   console.log(456);
+// }).catch((err)=>{
+//   console.log(err, 'err');
+// })
+// const p3 = Promise.reject('my error').catch((err)=>{
+//   console.log(err);  //此时返回 resolved，如果报错了 则返回reject
+// })
+
+
+
+//   ---------- 题目 ----------
+// 第一题
+Promise.resolve()
+  .then(() => {
+    console.log(1);
+  })
+  .catch(() => {
+    console.log(2);
+  })
+  .then(() => {
+    console.log(3);
+  });
+
+// 第二题
+Promise.resolve()
+  .then(() => {
+    console.log(1);
+    throw new Error("erro1");
+  })
+  .catch(() => {
+    console.log(2);
+  })
+  .then(() => {
+    console.log(3);
+  }); 
+
+// 第三题
+Promise.resolve()
+  .then(() => {
+    console.log(1);
+    throw new Error("erro1");
+  })
+  .catch(() => {
+    console.log(2);
+  })
+  .catch(() => {
+    // 注意这里是 catch
+    console.log(3);
+  });
+</script>
+</body>
+</html>

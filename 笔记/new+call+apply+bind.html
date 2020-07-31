@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function test(a, b) {
+        console.log(this.x, a, b);
+      }
+      /**
+       *  apply
+       */
+      // apply为函数的全局方法  解构方式拿到参数
+      Function.prototype.apply2 = function (...args) {
+        // 获取第一个对象
+        const t = args.shift();
+        // 在对象中 添加一个 fn方法 此时对象为这样
+        /**
+         *  t = {
+         *    x:1,
+         *    fn: function(){
+         *    console.log(this.x)
+         *  }
+         * }
+         */
+        t.fn = this;
+        // 判断是否有参数有责传入 fn函数被 t调用所以this指向 t
+        const result = args.length > 0 ? t.fn(...args) : t.fn();
+        //删除 t.fn方法 减少内存占用
+        delete t.fn;
+        return result;
+      };
+
+      test.apply2({ x: 1 }, [100, 200]);
+
+      /**
+       *  call 区别只在于传参
+       */
+      Function.prototype.call2 = function (...args) {
+        // 获取第一个对象
+        const t = args.shift();
+        // 在对象中 添加一个 fn方法 此时对象为这样
+        /**
+         *  t = {
+         *    x:1,
+         *    fn: function(){
+         *    console.log(this.x)
+         *  }
+         * }
+         */
+        t.fn = this;
+        // 判断是否有参数有责传入 fn函数被 t调用所以this指向 t
+        const result = args.length > 0 ? t.fn(...args) : t.fn();
+        //删除 t.fn方法 减少内存占用
+        delete t.fn;
+        return result;
+      };
+
+      test.call2({ x: 1 }, 100, 200);
+
+      /**
+       * bind
+       */
+      Function.prototype.bind1 = function (...args) {
+        // 获取 this（数组第一项）
+        const t = args.shift();
+
+        // 返回一个函数
+        return function () {
+          return this.apply(t, args);
+        };
+      };
+      test.bind1({ x: 1 }, 100, 200)();
+
+      /**
+       * 创建一个new
+       */
+
+      function creatNew(...args) {
+        // 创建一个空对象来接收构造函数上的属性
+        let obj = {};
+        // 提取构造函数
+        const con = args.shift();
+        // 将 obj的 __proto__ 指向 构造函数的 prototype ，通过原型链来找到“构造函数原型”上的方法
+        Object.setPrototypeOf(obj, con.prototype);
+        // 将 构造函数中的 this 指向 obj， 构造函数中的 this.name = name 只负责复制过程，
+        // 此步骤因为改变了 this 的指向 所以赋值会赋值在 obj上
+        let result = con.apply(obj, args);
+        // 判断 是否有返回结果且结果是否为 引用数据类型
+        return result instanceof Object ? result : obj;
+      }
+
+      function Test(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      Test.prototype.sayName = () => {
+        console.log(this);
+      };
+      const testNew = creatNew(Test, "小明", 26);
+      console.log(testNew.age);
+      testNew.sayName();
+    </script>
+  </body>
+</html>

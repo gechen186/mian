@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>margin 纵向重叠</title>
+    <style type="text/css">
+      /* 根据
+        BFC的定义，两个元素只有在同一BFC内，才有可能发生垂直外边距的重叠，包括相邻元素、嵌套元素。
+        要解决margin重叠问题，只要让它们不在同一个BFC内就行。
+        对于相邻元素，只要给它们加上BFC的外壳，就能使它们的
+        margin不重叠；对于嵌套元素，只要让父级元素触发BFC，就能使父级margin和当前元素的
+        margin不重叠。 */
+        div {
+        position: absolute;
+        display: table-cell;
+
+        /* margin-top: 10px;
+        margin-bottom: 15px; */
+      }
+      p {
+        font-size: 16px;
+        line-height: 1;
+        margin-top: 10px;
+        margin-bottom: 15px;
+      }
+      /* p::after{
+        content:'';
+        display: block;
+        display: table;
+      } */
+      /* .clearfix:after,
+      .clearfix:before {
+        content: "";
+        display: table;
+        clear: both;
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="clearfix">
+      <p class="p1 clearfix">AAA</p>
+      <p class="clearfix"></p>
+      <p class="clearfix"></p>
+      <p class="clearfix"></p>
+      <p class="clearfix">BBB</p>
+    </div>
+  </body>
+</html>

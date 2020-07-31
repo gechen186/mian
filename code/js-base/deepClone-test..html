@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      const obj1 = {
+        age: 20,
+        name: "张三",
+        address: {
+          city: "北京",
+        },
+        arr: ["a", "b", 1],
+      };
+
+      
+
+      const obj2 = deepClone(obj1);
+
+
+      /**
+       *
+       * @param {object} obj
+       */
+      function deepClone(obj = {}) {
+        //obj 是 null 或者 obj不等于 {} 或者 [], 则直接返回
+        if (typeof obj !== "object" || obj == null) {
+          return obj;
+        }
+        //初始化结果
+        let result;
+
+        if (Array.isArray(obj)) {
+          result = [];
+        } else {
+          result = {};
+        }
+
+        for (const key in obj) {
+          //保证 key 不是原型上的属性
+          if (obj.hasOwnProperty(key)) {
+            //递归
+            result[key] = deepClone(obj[key]);
+          }
+        }
+        return result;
+      }
+      
+    </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css">
+    /* -margin 会在外界看来当前元素不占-margin数值的大小 */
+      .content {
+        box-sizing: border-box;
+        overflow: hidden;
+        padding-left: 200px;
+        padding-right: 150px;
+        min-width: 600px;
+      }
+      .center {
+        background-color: blue;
+        width: 100%;
+        
+      }
+      .column{
+        float: left;
+      }
+      .left {
+        position: relative;
+        right: 200px;
+        background-color: yellow;
+        width: 200px;
+        margin-left: -100%;
+      }
+      .right {
+        background-color: red;
+        width: 150px;
+        margin-right: -150px;
+      }
+      .footer{
+        clear: both;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      header
+    </div>
+      <div class="content">
+        <div class="center column">center</div>
+        <div class="left column">left</div>
+        <div class="right column">right</div>
+      </div>
+    
+    <div class="footer">
+      footer
+    </div>
+
+    <script type="text/javascript"></script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>js 基础知识 演示</title>
+  </head>
+  <body>
+    <p>一段文字 1</p>
+    <p>一段文字 2</p>
+    <p>一段文字 3</p>
+
+    <!-- <script src="./promise-demo.js"></script> -->
+    <script>
+      Function.prototype.bindTest = function(...arg) {
+        const t = arg.shift()
+        const self = this
+
+        return function(){
+          self.apply(t, arg)
+        }
+      }
+      function test(params) {
+        console.log(this.x);
+      }
+      const test = {
+        fun: function test(params) {
+          console.log(this.x);
+        },
+        x: 1,
+      };
+
+      // function test2(...arg) {
+      //   const test = {
+      //     fun: arg.shift(),
+      //     ...arg
+      //   };
+      //   return test.fun()
+      // }
+      // test2(fun(),)
+      // const bindFn = test.bindTest({x:1},3,4)
+      // bindFn();
+      // Function.prototype.callTest = function (...arg) {
+      //   const t = arg.shift() || window;
+      //   t.func = this;
+      //   const res = arg.length > 1 ? t.func(...arg) : t.func;
+      //   console.log(t, t.func, res, arg);
+      //   return res;
+      // };
+      // test.callTest({ x: 1 }, 3, 4);
+    </script>
+  </body>
+</html>

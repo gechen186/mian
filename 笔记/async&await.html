@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      /* 
+    1. 执行 async函数，返回一个 Promise对象
+    2. await相当于Promise then
+ */
+
+      // !(async function () {
+      //   const p1 = Promise.resolve(300);
+      //   const data = await p1; // await 相当于 Promise then
+      //   console.log("data", data);
+      // })();
+
+      // !(async function () {
+      //   const data1 = await 400; //此处 await 相当于 Promise.resolve(400)
+      //   console.log("data1", data1);
+      // })();
+
+      // !(async function () {
+      //   const p2 = Promise.reject('err');
+      //   const res = await p2; //此处 await 相当于 Promise then 所以此处会报错，不会运行
+      //   console.log("res", res);
+      // })();
+
+      // async function async1() {
+      //   console.log("async1 start"); // 2
+      //   await async2(); //先执行 async2  再执行 await
+      //   // await的后边，都可以看成是 callback 里的内容，是异步
+      //   console.log("async1 end"); // 5
+      // }
+
+      // async function async2() {
+      //   console.log("async2"); // 3
+      // }
+
+      // console.log("script start"); // 1
+      // async1();
+      // console.log("script end"); // 4
+      // // 同步代码执行完 会去通过 Event Loop 去执行异步
+
+      function wait() {
+        return new Promise((resolve) => {
+          setTimeout(resolve, 1000)
+        });
+      }
+
+      async function main() {
+        console.time(); // 1
+        const x = await wait(); // Promise
+        const y = await wait(); // Promise
+        const z = await wait(); // Promise
+        // console.log(x, y, z);
+        // await x;
+        // await y;
+        // await z;
+        console.timeEnd(); // 4
+      }
+
+      main();
+    </script>
+  </body>
+</html>

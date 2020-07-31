@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      /* 
+      1. Browser console  浏览器console
+      2. Call Stack   函数调用区
+      3. Web APIs   浏览器环境的API（异步API） 比如setTimeout，这种是浏览器定义的
+      4. Callback Queue  回调队列
+      5. Event Loop  会在同步代码执行完毕后并Call Stack为空时
+                    立刻启动循环查找 Callback Queue内是否有可调用的回调函数
+
+      例如下边的代码运行流程
+      1. 首先 console.log('Hi') 进入 Call Stack 调用 然后在Browser console 打印出Hi
+      因为此时 console.log('Hi')已运行完，所以会被 Call Stack清除。
+      2. 运行到 setTimeout定时器，将 setTimeout放入 Call Stack后，
+      此时将回调 cb1放入Web APIs设置定时器 定时5s，并将 setTimeout 清除。
+      3. 运行到 console.log("Bye") 同 条目1。
+      4. 此时所有同步代码执行完毕，会立刻启动 Event Loop 在 Callback Queue 循环查找是否有可执行的异步函数
+      因为此时5秒还未结束，所以 Callback Queue 仍为空。
+      5. 5秒后 Web APIs会把cb1 推进 Callback Queue 此时 Event Loop 查找到 cb1 将 cb1放入 Call Stack
+      6. cb1在 Call Stack中调用发现其内部有一个 console.log("cb1")，将其放入 Call Stack并打印 cb1后清除
+      7. 此时 cb1中的代码都已执行完毕，cb1 清除，
+
+      总结：
+        1. 同步代码，一行一行放在 Call Stack执行
+        2. 遇到异步，会先 “记录”下，等待时机（定时，网络请求等）
+        3. 时机到了，就移动到 Callback Queue 等待 Event Loop查找
+        4. 如 Call Stack为空（即同步代码执行完毕） Event Loop开始工作
+        5. 轮询查找 Callback Queue，如有则移动到 Call Stack执行
+        6. 然后继续查找 （永动机一样）
+    */
+      // console.log("Hi");
+      // setTimeout(function cb1() {
+      //   console.log("cb1");
+      // }, 5000);
+      // console.log("Bye");
+
+      // 同步 => 遇到异步，宏任务/微任务 => 分别推进相关队列，同步执行完后，先执行微任务，然后尝试dom渲染，在运行event loop 执行宏任务。
+      Promise.resolve().then(() => {
+        setTimeout(function cb1() {
+          console.log("cb1");
+        }, 1000);
+      });
+      Promise.resolve().then(() => {
+        setTimeout(function cb2() {
+          console.log("cb2");
+        }, 0);
+      });
+
+      // for (let index = 0; index < 1000; index++) {
+      //   Promise.resolve().then(() => {
+      //     console.log(index);
+      //   });
+      // }
+      //微任务 队列
+      //web apis  setTimeout
+      // dom
+
+      /* 
+        DOM事件与 Event Loop
+        DOM事件与 setTimeout和 Ajax的区别是触发时机，准确说是 DOM事件内的回调函数的触发时机
+        运行完 console.log("Hi"); 后会运行到
+        $("btn").click(function cb1() {
+          console.log("cb1 click");
+        });
+        此时会直接将 cb1 放入 WebApis 等待用户触发，触发后会推入 Callback Queue 
+        等待同步代码执行完毕后的 Event Loop来查找
+
+      */
+      // console.log("Hi");
+      // $("btn").click(function cb1() {
+      //   console.log("cb1 click");
+      // });
+      // console.log("Bye");
+    </script>
+  </body>
+</html>

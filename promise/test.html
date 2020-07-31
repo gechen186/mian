@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      class Promise {
+        constructor(executor) {
+          this.status = "pendding";
+          this.value = null;
+          this.reason = null;
+
+          //存放成功回调的函数
+          this.onResolvedCallbacks = [];
+          //存放失败回调的函数
+          this.onRejectedCallbacks = [];
+
+          let resolve = (data) => {
+            if (this.status === "pendding") {
+              this.status = "resolve";
+              this.value = data;
+              this.onResolvedCallbacks.forEach((fn) => fn());
+            }
+          };
+
+          let reject = (data) => {
+            if (this.status === "pendding") {
+              this.status = "reject";
+              this.reason = data;
+              this.onRejectedCallbacks.forEach((fn) => fn());
+            }
+          };
+
+          try {
+            executor(resolve, reject);
+          } catch (err) {
+            reject(err);
+          }
+        }
+        then(onFufilled, onRejected){
+
+        }
+      }
+    </script>
+  </body>
+</html>

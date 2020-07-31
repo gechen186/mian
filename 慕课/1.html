@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+  for (let index = 0; index < 10; index++) {
+    const a = document.createElement('a')
+    a.innerText = '这里是'+(index+1)
+    a.style.display = 'block'
+    a.onclick = function(){
+      alert(index+1)
+    }
+    document.body.appendChild(a)
+  }
+</script>
+</body>
+</html>
