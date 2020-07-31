@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+  <button id="btn1">点击我</button>
+
+  <!-- <div id="div1">
+    <p id="p1">激活</p>
+    <p id="p2">取消</p>
+    <p id="p3">取消</p>
+    <p id="p4">取消</p>
+  </div>
+  <div id="div2">
+    <p id="p5">取消</p>
+    <p id="p6">取消</p>
+  </div> -->
+
+  <div id="div3">
+    <a >a1</a><br/>
+    <a >a2</a><br/>
+    <a >a3</a><br/>
+    <a >a4</a><br/>
+    <p>加载更多.....</p>
+  </div>
+
+<script type='text/javascript'>
+
+/* 
+  事件代理 是根据 事件冒泡 这个机制做的
+ */
+const div3 = document.getElementById('div3')
+ function bindEvent2(el, type,  fn){
+  el.addEventListener(type,fn)
+
+ }
+ bindEvent2(div3, 'click', event=>{
+   event.preventDefault()
+   if(event.target.nodeName === 'A'){
+    alert(event.target.innerHTML)
+   }
+ })
+
+
+/* 
+#题目
+  1. 编写一个同用事件监听函数
+  2. 描述事件冒泡流程
+  3. 无限下拉的图片列表，如何监听每个图片的点击
+#知识点
+  1. 事件绑定
+  2. 事件冒泡
+  3. 事件代理
+*/
+
+// 1. 
+// function bindEvent(el, type, fn){
+//   el.addEventListener(type,fn)
+// }
+
+// const btn1 = document.getElementById('btn1')
+// bindEvent(btn1, 'click', event =>{
+//   // console.log(event.target)
+//   // event.preventDefault(); //阻止默认行为
+//   alert('点击了：click')
+// })
+
+// const p1 = document.getElementById('p1')
+// const div1 = document.getElementById('div1')
+// const div2 = document.getElementById('div2')
+// const body = document.body
+// bindEvent(p1, 'click', event =>{
+//   // event.stopPropagation();
+//   // console.log(event.target)
+//   // event.preventDefault(); //阻止默认行为
+//   alert('激活了')
+// })
+// bindEvent(div2, 'click', event =>{
+//   // event.stopPropagation();
+//   // console.log(event.target)
+//   // event.preventDefault(); //阻止默认行为
+//   alert('div2')
+// })
+// bindEvent(body, 'click', event =>{
+//   alert('取消')
+// })
+
+
+
+</script>
+</body>
+</html>

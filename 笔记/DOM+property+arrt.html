@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+
+/* 
+  DOM优化
+  1. 避免频繁 DOM操作
+  2. 对 DOM查询做缓存
+  3. 将频繁操作改为一次操作  通过 document.createDocumentFragment() 创建临时片段
+*/
+// 1. 不缓存
+// for (let index = 0; index < document.getElementsByTagName('p').length; index++) {
+//   // 这种会每次循环都会查询 DOM
+// }
+
+// 2. 缓存
+// const pList = document.getElementsByTagName('p')
+// const pLength = pList.length
+// for (let index = 0; index < pLength; index++) {
+// }
+
+// 3.一次性操作
+// const list = document.getElementById('list')
+
+// // 创建一个文档片段，此时还没有插入到 DOM 结构中
+// const frag = document.createDocumentFragment()
+
+// for (let i  = 0; i < 20; i++) {
+//     const li = document.createElement('li')
+//     li.innerHTML = `List item ${i}`
+
+//     // 先插入文档片段中
+//     frag.appendChild(li)
+// }
+
+// // 都完成之后，再统一插入到 DOM 结构中
+// list.appendChild(frag)
+
+
+
+/* 
+  DOM结构操作
+ */
+//  const div1 = document.getElementById('div1')
+// const div2 = document.getElementById('div2')
+
+// // 新建节点
+// const newP = document.createElement('p')
+// newP.innerHTML = 'this is newP'
+// // 插入节点
+// div1.appendChild(newP)
+
+// // 移动节点 对现有节点 获取，插入其他 DOM节点会移动
+// const p1 = document.getElementById('p1')
+// div2.appendChild(p1)
+
+// // 获取父元素
+// console.log( p1.parentNode )
+
+// // 获取子元素列表
+// const div1ChildNodes = div1.childNodes
+// console.log( div1.childNodes )
+// const div1ChildNodesP = Array.prototype.slice.call(div1.childNodes).filter(child => {
+//     if (child.nodeType === 1) {
+//         return true
+//     }
+//     return false
+// })
+// console.log('div1ChildNodesP', div1ChildNodesP)
+
+// div1.removeChild( div1ChildNodesP[0] )
+
+/* 
+  property && attr
+*/
+
+//  property 形式 是对 DOM元素的对象属性（middleware ）进行修改，不会体现到 html结构中
+// p1.style.width = '100px'
+
+// attr 是对DOM元素的标签（修改html属性） 进行修改，会体现到 html结构中
+// p1.setAttribute('data-name', 'li')
+
+// 两者都有可能DOM重新渲染，尤其是 attr改变了 DOM的标签结构，肯定会引起重新渲染
+</script>
+</body>
+</html>
