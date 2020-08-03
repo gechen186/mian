@@ -39,6 +39,50 @@
 // })
 
 
+function foo(i) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(i);
+          }, 1000);
+        });
+      }
+
+      (async function () {
+        // 异步遍历
+        
+        for (var i = 0; i < 3; i++) {
+          var i
+          const res = foo(i);
+          console.log('ok', i);
+        }
+      })();
+      // async function async1() {
+      //   console.log("async1 start"); // 2
+      //   await async2(); //await这行是同步代码，执行后函数内 await下边代码将放入微任务队列
+      //   // 关键在这一步，它相当于微任务放在 micro task queue 微任务队列 中最后执行
+      //   console.log("async1 end");  // 微任务 1  ， 6
+      // }
+
+      // async function async2() {
+      //   console.log("async2"); // 3
+      // }
+
+      // console.log("script start");  // 1
+
+      // setTimeout(function () {
+      //   console.log("setTimeout");  //宏任务 1  8
+      // }, 0);
+
+      // async1();
+
+      // new Promise(function (resolve) {
+      //   console.log("promise1"); // 4
+      //   resolve();
+      //   console.log("？？？"); // 4
+      // }).then(() => {
+      //   console.log("promise2"); // 微任务 2 ， 7  微任务完毕 开始 DOM渲染后开始 Evnent Loop开始宏任务
+      // });
+      // console.log("script end"); // 5   这步结束后 同步代码全部完毕 开始执行微任务
 
 //   ---------- 题目 ----------
 // 第一题
