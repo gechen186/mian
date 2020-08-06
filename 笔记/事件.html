@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html lang='en'>
-<head>
-<meta charset='UTF-8'>
-<title>Title</title>
-<style type='text/css'>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <button id="btn1">点击我</button>
 
-</style>
-</head>
-<body>
-
-  <button id="btn1">点击我</button>
-
-  <!-- <div id="div1">
+    <!-- <div id="div1">
     <p id="p1">激活</p>
     <p id="p2">取消</p>
     <p id="p3">取消</p>
@@ -22,33 +19,46 @@
     <p id="p6">取消</p>
   </div> -->
 
-  <div id="div3">
-    <a >a1</a><br/>
-    <a >a2</a><br/>
-    <a >a3</a><br/>
-    <a >a4</a><br/>
-    <p>加载更多.....</p>
-  </div>
+    <div id="div3">
+      <a>a1</a><br />
+      <a>a2</a><br />
+      <a>a3</a><br />
+      <a>a4</a><br />
+      <p>加载更多.....</p>
+    </div>
 
-<script type='text/javascript'>
+    <script type="text/javascript">
+      /* 
+        事件代理 是根据 事件冒泡 这个机制做的
+      */
+      const div3 = document.getElementById("div3");
+      function bindEvent2(el, type, select, fn) {
+        if (fn == null) {
+          fn = select;
+          select = null;
+        }
+        el.addEventListener(type, (event) => {
+          const target = event.target
+          if (select ) {
+            if (target.matches(select)) {
+              fn.call(target, event);
+            }
+          } else {
+            fn.call(target, event);
+          }
+        });
 
-/* 
-  事件代理 是根据 事件冒泡 这个机制做的
- */
-const div3 = document.getElementById('div3')
- function bindEvent2(el, type,  fn){
-  el.addEventListener(type,fn)
+        // el.addEventListener(type,fn)
+      }
+      bindEvent2(div3, "click", "a", (event) => {
+        // 因为箭头函数的 this是父级所以此时的 this就是 window
+        // 所以需要用回调函数中传入的 event
+        // 如果是普通函数就可以直接用 this
+        event.preventDefault();
+        console.log(event.target.innerHTML);
+      });
 
- }
- bindEvent2(div3, 'click', event=>{
-   event.preventDefault()
-   if(event.target.nodeName === 'A'){
-    alert(event.target.innerHTML)
-   }
- })
-
-
-/* 
+      /* 
 #题目
   1. 编写一个同用事件监听函数
   2. 描述事件冒泡流程
@@ -59,40 +69,37 @@ const div3 = document.getElementById('div3')
   3. 事件代理
 */
 
-// 1. 
-// function bindEvent(el, type, fn){
-//   el.addEventListener(type,fn)
-// }
+      // 1.
+      // function bindEvent(el, type, fn){
+      //   el.addEventListener(type,fn)
+      // }
 
-// const btn1 = document.getElementById('btn1')
-// bindEvent(btn1, 'click', event =>{
-//   // console.log(event.target)
-//   // event.preventDefault(); //阻止默认行为
-//   alert('点击了：click')
-// })
+      // const btn1 = document.getElementById('btn1')
+      // bindEvent(btn1, 'click', event =>{
+      //   // console.log(event.target)
+      //   // event.preventDefault(); //阻止默认行为
+      //   alert('点击了：click')
+      // })
 
-// const p1 = document.getElementById('p1')
-// const div1 = document.getElementById('div1')
-// const div2 = document.getElementById('div2')
-// const body = document.body
-// bindEvent(p1, 'click', event =>{
-//   // event.stopPropagation();
-//   // console.log(event.target)
-//   // event.preventDefault(); //阻止默认行为
-//   alert('激活了')
-// })
-// bindEvent(div2, 'click', event =>{
-//   // event.stopPropagation();
-//   // console.log(event.target)
-//   // event.preventDefault(); //阻止默认行为
-//   alert('div2')
-// })
-// bindEvent(body, 'click', event =>{
-//   alert('取消')
-// })
-
-
-
-</script>
-</body>
+      // const p1 = document.getElementById('p1')
+      // const div1 = document.getElementById('div1')
+      // const div2 = document.getElementById('div2')
+      // const body = document.body
+      // bindEvent(p1, 'click', event =>{
+      //   // event.stopPropagation();
+      //   // console.log(event.target)
+      //   // event.preventDefault(); //阻止默认行为
+      //   alert('激活了')
+      // })
+      // bindEvent(div2, 'click', event =>{
+      //   // event.stopPropagation();
+      //   // console.log(event.target)
+      //   // event.preventDefault(); //阻止默认行为
+      //   alert('div2')
+      // })
+      // bindEvent(body, 'click', event =>{
+      //   alert('取消')
+      // })
+    </script>
+  </body>
 </html>
