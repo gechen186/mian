@@ -19,6 +19,7 @@
           start:null,
           end:null
         }
+        let arr = []
         let lock = 0
         for (let index = 0; index < array.length; index++) {
           lock = index
@@ -26,6 +27,8 @@
             (intersection.start||array[0].start) > array[index].end ||
             array[index].start > (intersection.end||array[0].end)
           ) {
+            arr.push(array[index])
+            // resArr.push(array[index]);
             // return "无交集";
           } else {
             intersection = {
@@ -36,6 +39,7 @@
             array.splice(0, 0)
             // return "有交集";
           }
+          console.log(arr);
           // console.log(array);
           // if(lock<=4){
           //   test(array)
