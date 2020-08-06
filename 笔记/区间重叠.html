@@ -7,6 +7,67 @@
   </head>
   <body>
     <script type="text/javascript">
+//     var merge = function (intervals) {
+//     if (intervals.length < 2) return intervals
+//     intervals.sort((a, b) => a[0] - b[0])  //先进行排序
+//     let curr = intervals[0]  //存储数组内的一个集合
+//     let result = []
+//     for (let interval of intervals) {
+//         if (curr[1] >= interval[0]) {
+//             curr[1] = Math.max(curr[1], interval[1])
+//         } else {
+//             result.push(curr)
+//             curr = interval
+//         }
+//     }
+//     if (curr.length !== 0) {
+//         result.push(curr)
+//     }
+//     return result
+// };
+      var arr = [
+        [1, 3],
+        [2, 6],
+        [15, 18],
+        [8, 10],
+        [10, 11],
+        [7, 8],
+      ];
+      function merge(arr) {
+        //排序
+        arr.sort(function (a, b) {
+          if (a[0] != b[0]) {
+            return a[0] - b[0];
+          }
+          return a[1] - b[1];
+        });
+        let ans = [],
+          start,
+          end;
+        //排序之后，看看有没有重叠的，如果有，合并
+        for (let i = 0; i < arr.length; i++) {
+          let s = arr[i][0],
+            e = arr[i][1];
+          if (start === undefined) {
+            (start = s), (end = e);
+          } else if (s <= end) {
+            end = Math.max(e, end);
+          } else {
+            let part = [start, end];
+            ans.push(part);
+            start = s;
+            end = e;
+          }
+        }
+        if (start !== undefined) {
+          let part = [start, end];
+          ans.push(part);
+        }
+
+        return ans;
+      }
+
+      console.log(merge(arr));
       // function test(f, s) {
       //   if (f.start > s.end || s.start > f.end) {
       //     return "无交集";
@@ -14,45 +75,45 @@
       //     return "有交集";
       //   }
       // }
-      function test(array) {
-        let intersection = {
-          start:null,
-          end:null
-        }
-        let arr = []
-        let lock = 0
-        for (let index = 0; index < array.length; index++) {
-          lock = index
-          if (
-            (intersection.start||array[0].start) > array[index].end ||
-            array[index].start > (intersection.end||array[0].end)
-          ) {
-            arr.push(array[index])
-            // resArr.push(array[index]);
-            // return "无交集";
-          } else {
-            intersection = {
-              start: Math.min(array[0].start, array[index].start),
-              end: Math.max(array[0].end, array[index].end),
-            }
-            array.splice(0, index)
-            array.splice(0, 0)
-            // return "有交集";
-          }
-          console.log(arr);
-          // console.log(array);
-          // if(lock<=4){
-          //   test(array)
-          // }
-          // return resArr;
-        }
-      }
-      const a = { start: 3, end: 5 };
-      const b = { start: 4, end: 6 };
-      const c = { start: 7, end: 8 };
-      const d = { start: 9, end: 10 };
-      const e = { start: 4, end: 8 };
-      test([a, b, c, d, e])
+      // function test(array) {
+      //   let intersection = {
+      //     start:null,
+      //     end:null
+      //   }
+      //   let arr = []
+      //   let lock = 0
+      //   for (let index = 0; index < array.length; index++) {
+      //     lock = index
+      //     if (
+      //       (intersection.start||array[0].start) > array[index].end ||
+      //       array[index].start > (intersection.end||array[0].end)
+      //     ) {
+      //       arr.push(array[index])
+      //       // resArr.push(array[index]);
+      //       // return "无交集";
+      //     } else {
+      //       intersection = {
+      //         start: Math.min(array[0].start, array[index].start),
+      //         end: Math.max(array[0].end, array[index].end),
+      //       }
+      //       array.splice(0, index)
+      //       array.splice(0, 0)
+      //       // return "有交集";
+      //     }
+      //     console.log(arr);
+      //     // console.log(array);
+      //     // if(lock<=4){
+      //     //   test(array)
+      //     // }
+      //     // return resArr;
+      //   }
+      // }
+      // const a = { start: 3, end: 5 };
+      // const b = { start: 4, end: 6 };
+      // const c = { start: 7, end: 8 };
+      // const d = { start: 9, end: 10 };
+      // const e = { start: 4, end: 8 };
+      // test([a, b, c, d, e])
       // console.log(test([a, b, c, d, e]));
     </script>
   </body>
