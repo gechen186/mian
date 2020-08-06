@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+
+      /* 
+        GET & POST
+      */
+
+      xhr.open("POST", "/api/xxx/xxx", true); // 第三个参数表示是否异步
+      // xhr.open("GET", "/api/xxx/xxx", false);
+      xhr.onreadystatechange = function () {
+        /* 
+          send后会频繁触发 onreadystatechange
+            readyState 参数
+          0（未初始化）还没有调用 send方法
+          1（载入）已调用 send()方法，正在发送请求
+          2（载入完成）send()方法执行完成，已经接收到全部相应内容
+          3（交互）正在解析相应内容
+          4（完成）相应内容解析完成，可以在客户端调用
+          一般只用 4
+         */
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            alert(xhr.responseText);
+          }
+        }
+      };
+      // POST请求
+      // const postData = {
+      //   userName: 'xxx',
+      //   passWord: 'xxx'
+      // }
+      // xhr.send(JSON.stringify(postData)); // POSt 要发送 Json字符串
+      xhr.send(null); // get 请求发送 null即可
+    </script>
+  </body>
+</html>

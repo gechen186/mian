@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // function test(f, s) {
+      //   if (f.start > s.end || s.start > f.end) {
+      //     return "无交集";
+      //   } else {
+      //     return "有交集";
+      //   }
+      // }
+      function test(array) {
+        let resArr = [];
+        function fn(){
+
+        }
+        for (let index = 0; index < array.length; index++) {
+          if (
+            array[0].start > array[index].end ||
+            array[index].start > array[0].end
+          ) {
+            // if (array[0].start > array[1].end || array[1].start > array[0].end) {
+            resArr.push(array[index]);
+            // return "无交集";
+          } else {
+            resArr.push({
+              start: Math.min(array[0].start, array[1].start),
+              end: Math.max(array[0].end, array[1].end),
+            });
+            // return "有交集";
+          }
+          return resArr;
+        }
+      }
+      const a = { start: 3, end: 5 };
+      const b = { start: 4, end: 6 };
+      const c = { start: 7, end: 8 };
+      const d = { start: 9, end: 10 };
+      const e = { start: 4, end: 8 };
+
+      console.log(test([a, b, c, d, e]));
+    </script>
+  </body>
+</html>
