@@ -7,114 +7,73 @@
   </head>
   <body>
     <script type="text/javascript">
-//     var merge = function (intervals) {
-//     if (intervals.length < 2) return intervals
-//     intervals.sort((a, b) => a[0] - b[0])  //先进行排序
-//     let curr = intervals[0]  //存储数组内的一个集合
-//     let result = []
-//     for (let interval of intervals) {
-//         if (curr[1] >= interval[0]) {
-//             curr[1] = Math.max(curr[1], interval[1])
-//         } else {
-//             result.push(curr)
-//             curr = interval
-//         }
-//     }
-//     if (curr.length !== 0) {
-//         result.push(curr)
-//     }
-//     return result
-// };
-      var arr = [
-        [1, 3],
-        [2, 6],
-        [15, 18],
-        [8, 10],
-        [10, 11],
-        [7, 8],
-      ];
-      function merge(arr) {
-        //排序
+
+      function test(array) {
+        // 先转为数组并排序
+        let arr = [];
+        for (const item of array) {
+          arr.push([item.start, item.end]);
+        }
         arr.sort(function (a, b) {
           if (a[0] != b[0]) {
             return a[0] - b[0];
           }
           return a[1] - b[1];
         });
-        let ans = [],
-          start,
-          end;
-        //排序之后，看看有没有重叠的，如果有，合并
-        for (let i = 0; i < arr.length; i++) {
-          let s = arr[i][0],
-            e = arr[i][1];
-          if (start === undefined) {
-            (start = s), (end = e);
-          } else if (s <= end) {
-            end = Math.max(e, end);
+        // 取出数组第一个值来对后边进行比对，并以此为比较点
+        let intersection = arr.shift();
+        let arr2 = []
+        for (let index = 0; index < arr.length; index++) {
+          // 此判断为 在区间外
+          if (
+            intersection[0] > arr[index][1] ||
+            arr[index][0] > intersection[1]
+          ) {
+            // 若不重叠 而且因为已经排序 则表示 intersection 已经与后边所有数均不重叠，可以推进新数组
+            arr2.push(intersection)
+            if(intersection.toString() !== arr[index].toString()){
+              intersection = arr[index];
+            }
+            //不重叠
           } else {
-            let part = [start, end];
-            ans.push(part);
-            start = s;
-            end = e;
+            //如果重叠则判断 当前值 与 arr值 大小  下次循环进行判断将以此次赋值为条件了
+            intersection = [
+              Math.min(intersection[0], arr[index][0]),
+              Math.max(intersection[1], arr[index][1]),
+            ];
+            //重叠
+          }
+
+          if(index+1 === arr.length){
+            intersection = [
+              Math.min(intersection[0], arr[index][0]),
+              Math.max(intersection[1], arr[index][1]),
+            ]
+            arr2.push( intersection)
           }
         }
-        if (start !== undefined) {
-          let part = [start, end];
-          ans.push(part);
-        }
-
-        return ans;
+        return arr2
       }
 
-      console.log(merge(arr));
-      // function test(f, s) {
-      //   if (f.start > s.end || s.start > f.end) {
-      //     return "无交集";
-      //   } else {
-      //     return "有交集";
-      //   }
-      // }
-      // function test(array) {
-      //   let intersection = {
-      //     start:null,
-      //     end:null
-      //   }
-      //   let arr = []
-      //   let lock = 0
-      //   for (let index = 0; index < array.length; index++) {
-      //     lock = index
-      //     if (
-      //       (intersection.start||array[0].start) > array[index].end ||
-      //       array[index].start > (intersection.end||array[0].end)
-      //     ) {
-      //       arr.push(array[index])
-      //       // resArr.push(array[index]);
-      //       // return "无交集";
-      //     } else {
-      //       intersection = {
-      //         start: Math.min(array[0].start, array[index].start),
-      //         end: Math.max(array[0].end, array[index].end),
-      //       }
-      //       array.splice(0, index)
-      //       array.splice(0, 0)
-      //       // return "有交集";
-      //     }
-      //     console.log(arr);
-      //     // console.log(array);
-      //     // if(lock<=4){
-      //     //   test(array)
-      //     // }
-      //     // return resArr;
-      //   }
-      // }
-      // const a = { start: 3, end: 5 };
-      // const b = { start: 4, end: 6 };
-      // const c = { start: 7, end: 8 };
-      // const d = { start: 9, end: 10 };
-      // const e = { start: 4, end: 8 };
-      // test([a, b, c, d, e])
-      // console.log(test([a, b, c, d, e]));
+
+
+      const a = { start: 3, end: 5 };
+      const b = { start: 4, end: 6 };
+      const e = { start: 4, end: 8 };
+      const c = { start: 7, end: 8 };
+      const d = { start: 9, end: 10 };
+      const f = { start: 12, end: 16 };
+      const v = { start: 12, end: 16 };
+      const g = { start: 2, end: 17 };
+      const j = { start: 1, end: 18 };
+      const h = { start: 20, end: 30 };
+      const i = { start: 20, end: 30 };
+      const m = { start: 31, end: 40 };
+      const n = { start: 51, end: 60 };
+      const z= { start: 52, end: 59 };
+      const zz= { start: 52, end: 59 };
+      console.log(test([a, b, c, d, e, f, g, h, j, i,v,m,n,z,zz]));
+      // console.log(test([a, b, c, d, e, f, g, h, j, i]));
     </script>
   </body>
 </html>

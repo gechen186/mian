@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // new Promise((resolve) => {
+      //     resolve(1);
+      // }).then((data) => {
+      //   console.log(data);
+      // }).then((data) => {
+      //   console.log('then error');
+      //   throw new Error(123123)
+      // }).then(()=>{
+      //   console.log('then2 error');
+      // }).catch(()=>{
+      //   console.log('catch2 error');
+      // })
+      function test() {
+        new Promise((resolve) => {
+          setTimeout(() => {
+            red();
+            resolve(111);
+          }, 3000);
+        })
+          .then((data) => {
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                yellow();
+                resolve();
+              }, 2000);
+            });
+          })
+          .then((data) => {
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                green();
+                resolve();
+              }, 1000);
+            });
+          })
+          .then(() => {
+            test();
+          });
+      }
+      test();
+      function red() {
+        console.log("红灯，3秒");
+      }
+      function green() {
+        console.log("绿灯，1秒");
+      }
+      function yellow() {
+        console.log("黄灯，2秒");
+      }
+    </script>
+  </body>
+</html>
