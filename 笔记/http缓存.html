@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+
+/* 
+    缓存相关的  headers
+      Cache-control: Expres
+      Last-Modified: If-Modified-Since
+      Etag: If-None-Match
+      Cache-control实在 Response Headers中，Cache-control可以控制强制缓存逻辑
+      例如：Cache-control:max-age=31536000(单位：秒)
+    
+    优先强制缓存
+
+    强制缓存
+      浏览器初次请求会 浏览器 -> 本地缓存 -> 服务器 ，然后服务器 返回资源并在 Response Headers上带有
+    Cache-control，当浏览器再次请求相同资源时会在本地缓存内找到带有 Cache-control的资源（时间未失效的前提下）
+    所以就不会再次请求
+    Cache-control参数：1. max-age   最大过期时间
+                      2. no-cache  不用强制缓存，而是用协商缓存
+                      3. no-store  不用本地所有缓存而且不用服务端的缓存措施，每次都要求服务器给最新的
+                      4. private   只允许最终用户缓存
+                      5. public    允许中间层缓存
+
+    Expires已经被 Cache-control代替了
+
+    协商缓存（对比缓存）
+      1. 服务端缓存策略，服务端判断客户端资源，是否和服务端资源一样
+      2. 一致则返回304，否则返回 200和最新的资源
+      浏览器 -> 服务端 ->服务端返回资源，并返回一个资源标识（Last-Modified）（Etag）
+      浏览器再次请求时 Request Headers会携带资源标识
+      （if-Modified-Since，对应 Last-Modified）
+      （if-None-Match，对应 Etag）
+                        -> 
+      若服务端判断标识一致则返回 304，否则返回新资源和新标识
+
+      资源标识
+      1. 在Response Headers中，有两种
+          a. Last-Modified 资源的最后修改时间
+          b. Etag 资源唯一标识（一个字符串，类似人类的指纹），优先使用
+
+      刷新对缓存的影响
+      1. 通过 url，前进后退：强制缓存有效，协商缓存有效
+      2. F5刷新           ：强制缓存无效，协商缓存有效
+      3. Ctrl + F5       ：强制缓存无效，协商缓存无效
+
+
+*/
+</script>
+</body>
+</html>

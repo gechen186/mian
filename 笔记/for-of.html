@@ -20,10 +20,10 @@
       /* 
           forEach和 for in 相当于同时创建 3个异步，异步计时几乎同时开始，所以打印结果会等待一秒后同时出现 
        */
-      // nums.forEach(async (item) => {
-      //   const res = await muti(item)
-      //   console.log(res);
-      // })
+      nums.forEach(async (item) => {
+        const res = await muti(item)
+        console.log(res);
+      })
 
       /* 
           for of 是每次创建一个异步，只有在有结果且是 resolved的时候 后才会进行下一个异步

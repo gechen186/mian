@@ -15,11 +15,14 @@
         },
         arr: ["a", "b", 1],
       };
-
-      
-
-      const obj2 = deepClone(obj1);
-
+      const arrtest = [1,2,3,4,5,6]
+      for (const key in obj1) {
+        console.log(key, 'in');
+      }
+      for (const key of Object.keys(obj1)) {
+        console.log(key, 'of');
+      }
+      // const obj2 = deepClone(obj1);
 
       /**
        *
@@ -27,7 +30,8 @@
        */
       function deepClone(obj = {}) {
         //obj 是 null 或者 obj不等于 {} 或者 [], 则直接返回
-        if (typeof obj !== "object" || obj == null) {
+        console.log(typeof obj === "object" && obj !== null);
+        if (typeof obj === "object" && obj !== null) {
           return obj;
         }
         //初始化结果
@@ -40,7 +44,7 @@
         }
 
         for (const key in obj) {
-          //保证 key 不是原型上的属性
+          //保证 key是在 obj中，而不是原型上的属性
           if (obj.hasOwnProperty(key)) {
             //递归
             result[key] = deepClone(obj[key]);
@@ -48,7 +52,23 @@
         }
         return result;
       }
-      
+      // function deepClone2(obj = {}) {
+      //   if (typeof obj !== "object" || obj == null) {
+      //     return obj;
+      //   }
+      //   let result = null;
+      //   if (Array.isArray(obj)) {
+      //     result = [];
+      //   } else {
+      //     result = {};
+      //   }
+      //   for (const key in obj) {
+      //     if (obj.hasOwnProperty(key)) {
+      //       result[key] = deepClone2(obj[key]);
+      //     }
+      //   }
+      //   return result;
+      // }
     </script>
   </body>
 </html>
