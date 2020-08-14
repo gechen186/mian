@@ -189,15 +189,12 @@
     以下代码片段, 选择它的打印输出 (省略换行)
 
     ```js
-    function fn2(){
       for(var i=0;i<4;i++){
         var timer=setInterval(function(i,timer){
           console.log(i);
           clearInterval(timer)
         },10,i,timer);
       }
-    }
-    fn2();
     ```
     A. 0 1 2 3 0 1 2 3 四个数重复
 

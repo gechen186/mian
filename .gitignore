@@ -1,0 +1,20 @@
+# dependencies
+node_modules
+
+# logs
+npm-debug.log
+
+# Nuxt build
+.nuxt
+
+# Nuxt generate
+dist
+
+build
+.idea/
+
+.env
+restart.sh
+.eslintcache
+
+yarn-error.log
