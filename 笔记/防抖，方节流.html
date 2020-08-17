@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <input type="text" id="input1" />
+
+    <script type="text/javascript">
+      /* 防抖是频繁输入最后的时候才会触发*/
+      const input1 = document.querySelector("#input1");
+      let timer = null;
+      input1.addEventListener(
+        "keyup",
+        debounce(
+          (event) => {
+            console.log(this, event.target.value);
+            // if(timer){
+            //   clearTimeout(timer)
+            // }
+            // timer = setTimeout(()=>{
+            //   console.log(1);
+            //   timer = null
+            // }, 1000)
+          },
+          1000,
+          true
+        ),
+        false
+      );
+
+      function debounce(fn, wait, immediate) {
+        let timeout = null;
+        let result = null;
+
+        let debounced = function (...argArr) {
+          let context = this;
+          let args = argArr;
+
+          if (timeout) {
+            clearTimeout(timeout);
+          }
+          let callNow = !timeout;
+          if (immediate) {
+            timeout = setTimeout(() => {
+              timeout = null;
+            }, wait);
+            if (callNow) {
+              fn.apply(context, args);
+            }
+          } else {
+            timeout = setTimeout(() => {
+              fn.apply(context, args);
+            }, wait);
+          }
+        };
+        debounced.cancel = function () {
+          clearTimeout(timeout);
+          timeout = null;
+        };
+        return debounced;
+      }
+
+      // function debounce(fn, wait, immediate) {
+      //   let timeout, result;
+      //   console.log(arguments);
+      //   let debounced = function (...argArr) {
+      //     let context = this; //此处 this是 input，因为此函数最终被返回为 input1的回调函数
+      //     let args = argArr;
+      //     if (timeout) { //如果已经开启则清除
+      //       clearTimeout(timeout);
+      //     }
+      //     let callNow = !timeout;
+      //     if (immediate) {
+      //       timeout = setTimeout(function () {
+      //         timeout = null;
+      //       }, wait);
+      //       if (callNow) {
+      //         result = fn.apply(context, args);
+      //       }
+      //     } else {
+      //       timeout = setTimeout(function () {
+      //         result = fn.apply(context, args);
+      //         console.log(result);
+      //       }, wait);
+      //     }
+      //   };
+      //   debounced.cancel = function () {
+      //     clearTimeout(timeout);
+      //     timeout = null;
+      //   };
+      //   return debounced;
+      // }
+
+      // function debounce(fn, delay = 500) {
+      //   let timer = null
+      //   return (...args) =>{
+      //     if(timer){
+      //       clearTimeout(timer)
+      //     }
+      //     return new Promise((resolve)=>{
+      //       timer = setTimeout(()=>{
+      //         resolve(fn(...args))
+      //       }, delay)
+      //     })
+      //   }
+      // }
+      // function debounce(fn, delay = 500) {
+      //   // timer在闭包中
+      //   let timer = null
+      //   return function (...arg) {
+      //     if(timer){
+      //       clearTimeout(timer)
+      //     }
+      //     timer = setTimeout(()=>{
+      //      console.log(this, arguments)
+      //     //  fn(...arg)
+      //       fn.apply(this, arguments)
+      //       timer = null
+      //     }, delay)
+      //   }
+      // }
+
+      /* 节流是频繁输入以一个频率连续触发*/
+    </script>
+  </body>
+</html>
