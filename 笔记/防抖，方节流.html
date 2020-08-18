@@ -14,7 +14,7 @@
       let timer = null;
       input1.addEventListener(
         "keyup",
-        debounce(
+        throttle(
           (event) => {
             console.log(this, event.target.value);
             // if(timer){
@@ -26,33 +26,39 @@
             // }, 1000)
           },
           1000,
-          true
+          false
         ),
         false
       );
 
       function debounce(fn, wait, immediate) {
+        // 定时器返回值
         let timeout = null;
+        // fn函数返回值
         let result = null;
 
         let debounced = function (...argArr) {
+          //获取所调用防抖函数的 上下文 this
           let context = this;
           let args = argArr;
-
+          // 如果当前有启动定时器则关闭，因为防抖函数是一段时间内只触发一次
           if (timeout) {
             clearTimeout(timeout);
           }
+          // 立即执行的 falg
           let callNow = !timeout;
+          // 是否开启立即执行
           if (immediate) {
+            // n秒后置空，因为立即执行的防抖是以空为判断条件
             timeout = setTimeout(() => {
               timeout = null;
             }, wait);
             if (callNow) {
-              fn.apply(context, args);
+              result = fn.apply(context, args);
             }
           } else {
             timeout = setTimeout(() => {
-              fn.apply(context, args);
+              result = fn.apply(context, args);
             }, wait);
           }
         };
@@ -60,70 +66,45 @@
           clearTimeout(timeout);
           timeout = null;
         };
+        debounced.result = result;
         return debounced;
       }
-
-      // function debounce(fn, wait, immediate) {
-      //   let timeout, result;
-      //   console.log(arguments);
-      //   let debounced = function (...argArr) {
-      //     let context = this; //此处 this是 input，因为此函数最终被返回为 input1的回调函数
-      //     let args = argArr;
-      //     if (timeout) { //如果已经开启则清除
-      //       clearTimeout(timeout);
-      //     }
-      //     let callNow = !timeout;
-      //     if (immediate) {
-      //       timeout = setTimeout(function () {
-      //         timeout = null;
-      //       }, wait);
-      //       if (callNow) {
-      //         result = fn.apply(context, args);
-      //       }
-      //     } else {
-      //       timeout = setTimeout(function () {
-      //         result = fn.apply(context, args);
-      //         console.log(result);
-      //       }, wait);
-      //     }
-      //   };
-      //   debounced.cancel = function () {
-      //     clearTimeout(timeout);
-      //     timeout = null;
-      //   };
-      //   return debounced;
-      // }
-
-      // function debounce(fn, delay = 500) {
-      //   let timer = null
-      //   return (...args) =>{
-      //     if(timer){
-      //       clearTimeout(timer)
-      //     }
-      //     return new Promise((resolve)=>{
-      //       timer = setTimeout(()=>{
-      //         resolve(fn(...args))
-      //       }, delay)
-      //     })
-      //   }
-      // }
-      // function debounce(fn, delay = 500) {
-      //   // timer在闭包中
-      //   let timer = null
-      //   return function (...arg) {
-      //     if(timer){
-      //       clearTimeout(timer)
-      //     }
-      //     timer = setTimeout(()=>{
-      //      console.log(this, arguments)
-      //     //  fn(...arg)
-      //       fn.apply(this, arguments)
-      //       timer = null
-      //     }, delay)
-      //   }
-      // }
-
       /* 节流是频繁输入以一个频率连续触发*/
+
+      // function throttle(fn, wait){
+      //   let context = null
+      //   let previous = 0
+      //   return function(){
+      //     let now = +new Date()
+      //     context = this
+      //     args = [...arguments]
+      //     if(now - previous > wait){
+      //       fn.apply(context, args)
+      //       previous = now
+      //     }
+      //   }
+      // }
+      function throttle(fn, wait, immediate) {
+        let context = null;
+        let timer = null;
+        return function () {
+          // let now = +new Date()
+          let args = [...arguments];
+
+          context = this;
+          if (timer) {
+            return false;
+          }
+          timer = setTimeout(function () {
+            fn.apply(context, args);
+            timer = null;
+          }, wait);
+          // if(now - previous > wait){
+          //   fn.apply(context, args)
+          //   previous = now
+          // }
+        };
+      }
     </script>
   </body>
 </html>

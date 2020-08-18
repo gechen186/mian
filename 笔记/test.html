@@ -7,12 +7,109 @@
   </head>
   <body>
     <script type="text/javascript">
-       for(var i=0;i<4;i++){
-        var timer=setInterval(function(i,timer){
-          console.log(i);
-          clearInterval(timer)
-        },10,i,timer);
+      // for (var i = 0; i < 4; i++) {
+      //   var timer = setInterval(
+      //     function (i, timer) {
+      //       console.log(i);
+      //       clearInterval(timer);
+      //     },
+      //     10,
+      //     i,
+      //     timer
+      //   );
+      // }
+      // function findTopSum(arr, k, m) {
+      //   function compare(val1, val2) {
+      //     return val1 - val2;
+      //   }
+      //   arr.sort(compare);
+      //   let obj = {};
+      //   for (const item of arr) {
+      //     if (!obj[item]) {
+      //       obj[item] = 1;
+      //     } else {
+      //       obj[item] += 1;
+      //     }
+      //   }
+      //   console.log(obj, obj[k], obj[m]);
+      //   arr = Array.from(new Set(arr)) ;
+      //   console.log(arr[arr.length - k] , arr[arr.length - m]);
+      //   const reslut = arr[arr.length - k] * obj[arr[arr.length - k]]+arr[arr.length - m] * obj[arr[arr.length - m]]
+      //   console.log(reslut);
+      // }
+      // findTopSum([1, 2, 4, 4, 3,3, 5,6,7 ,8 ,8], 1, 4);
+
+      // function adJoin(arr, condition) {
+      //   let innerArr = [];
+      //   let outArr = [];
+      //   arr.forEach((resultItem, index) => {
+      //     if (condition(resultItem)) {
+      //       innerArr.push(resultItem);
+      //     } else {
+      //       if (innerArr.length > 0) {
+      //         outArr.push(innerArr);
+      //       }
+      //       outArr.push(resultItem);
+      //       innerArr = [];
+      //     }
+      //   });
+      //   if (innerArr.length > 0) {
+      //     outArr.push(innerArr);
+      //   }
+      //   return outArr;
+      // }
+      // adJoin([1, 2, 3, 4, 5], (item) => item < 3);
+
+
+      /* 
+        实现一个 EatMan
+        示例：
+          1. EatMan("Hank")输出：
+            Hi! This is Hank!
+          2. EatMan("Hank").eat('dinner').eat('supper')输出：
+            Hi! This is Hank!
+            Eat dinner
+            Eat supper
+          3. EatMan("Hank").eat('supper').eatFirst('lunch').eatFirst('breakfast')输出：
+            Eat breakfast
+            Eat lunch
+            Hi! This is Hank!
+            Eat supper
+      */
+      let index = 0;
+      let stack = [];
+      function EatMan(name) {
+        return new _eatman(name);
       }
+      function next() {
+        const fn = stack[index]
+        index++
+        if(Object.prototype.toString.call(fn) === '[object Function]'){
+          fn()
+        }
+      }
+      function _eatman(name) {
+        stack.push(function(){
+          console.log(`Hi! This is ${name}!`);
+          next()
+        })
+      }
+      _eatman.prototype.eat = function (name) {
+        stack.push(function(){
+          console.log(`Eat ${name}!`);
+          next()
+        })
+        return this
+      };
+      _eatman.prototype.eatFirst = function (name) {
+        stack.unshift(function(){
+          console.log(`Eat ${name}!`);
+          next()
+        })
+        return this
+      };
+      EatMan("Hank").eat('supper').eatFirst('lunch').eatFirst('breakfast')
+      next()
       
     </script>
   </body>
