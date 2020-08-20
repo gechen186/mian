@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+
+function Foo(){
+  Foo.a = function(){
+    console.log(1)
+  }
+  this.a = function (params) {
+    console.log(2);
+  }
+  return {}
+}
+Foo.prototype.a = function (params) {
+  console.log(3);
+}
+Foo.a = function (params) {
+  console.log(4);
+}
+Foo.a() // 4
+// console.log(obj);
+obj.a() //2
+Foo.a() //1
+
+
+
+// var a={}
+// var b=[{
+//   key:'123'
+// }]
+// var c=[{
+//   key:'456'
+// }]
+
+// a[b]='b'
+// a[c]='c'
+// console.log(a,a['[object Object]'],a[b], a[c]);
+</script>
+
+</body>
+</html>

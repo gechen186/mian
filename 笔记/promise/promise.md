@@ -1,0 +1,27 @@
+### 1. Promise的概念
+```
+    // Promise的三种状态
+    const PENDING = "pending";
+    const FULFILLED = "fulfilled";
+    const REJECTED = "rejected";
+    // 只有 等待状态下，promise才可迁移至 执行状态或拒绝状态，且迁移后不可变
+    if (this.state === PENDING) {
+      this.state = FULFILLED || REJECTED;
+    }
+    // 执行状态 fulfilled下 必须有一个"引用地址"不可变得终值(属性值可被更改)
+    this.value = value
+    // 拒绝状态 rejected下 必须有一个"引用地址"不可变得拒因(属性值可被更改)
+    this.reason = reason
+    // promise必须提供一个 then方法来访问当前的 值，终值，拒因
+    // onFulfilled, onRejected必须为函数，否则必须被忽略
+    promise.then(onFulfilled, onRejected)
+    // onFulfilled
+    // onFulfilled在 promise执行结束前不可被调用
+    // onFulfilled在 promise执行结束后必须被调用，onFulfilled的第一个参数作为 promise的终值
+    // onFulfilled只可被调用一次
+
+    // onRejected
+    // onRejected在 promise执行结束前不可被调用
+    // onRejected在 promise执行结束后必须被调用，onRejected的第一个参数作为 promise的拒因
+    // onFulfilled只可被调用一次
+```

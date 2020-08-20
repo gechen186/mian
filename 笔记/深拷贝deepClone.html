@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      const obj1 = {
+        a: 1,
+        b: 2,
+        c: {
+          a: 2,
+        },
+      };
+      const arr = [1, 2, 3, { a: 1 }];
+      function deepClone(obj) {
+        // 1.若对象不是引用数据类型则直接返回
+        if (typeof obj === "object" && obj !== null) {
+          return obj;
+        }
+        let result = null;
+        // 2. 判断这个引用数据类型是 数组 或 对象，并创建相关空集合
+        if (Array.isArray(obj)) {
+          result = [];
+        } else {
+          result = {};
+        }
+        // 3. 遍历 obj 递归属性内部的引用数据类型
+        for (const key in obj) {
+          if (obj.hasOwnProperty(key)) {
+            result[key] = deepClone(obj[key]);
+          }
+        }
+        return result;
+      }
+      console.log(arr, deepClone(arr), arr === deepClone(arr));
+    </script>
+  </body>
+</html>

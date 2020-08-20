@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      const obj1 = {
+        a: 1,
+        c: 1,
+        b: 2,
+        d: {
+          e: 3,
+          f: 4,
+        },
+      };
+      const obj2 = {
+        a: 1,
+        c: 1,
+        d: {
+          e: 3,
+          f: 4,
+        },
+        b: 2,
+      };
+
+      const arr1 = [1, 2, 3];
+      const arr2 = { 0: 1, 1: 2, 2: 3 };
+
+      console.log(isEqual(obj1, obj2));
+
+      function isEqual(obj1, obj2) {
+        // 1. 如果有一个不是引用数据类型，则大概率是基础数据类型，就不需要进行对象全等判断，可以直接判断后返回
+        if (!isObject(obj1) || !isObject(obj2)) {
+          return obj1 === obj2;
+        }
+        // 2. 如果是两个对象是同一个引用地址就肯定相等
+        if (obj1 === obj2) {
+          return true;
+        }
+        //3. 因为 { 0: 1, 1: 2, 2: 3 } 与 [1, 2, 3]的key相同所以需要确定两个数据类型完全一样
+        if(Array.isArray(obj1) !== Array.isArray(obj2)){
+          return false
+        }
+        // 4. 经过上述判断两个旧肯定是 引用类型 且 不是同一个内存地址
+        // 先粗略判断两个对象的长度是否一致，若不一致则肯定不全等
+        const obj1Keys = Object.keys(obj1);
+        const obj2Keys = Object.keys(obj2);
+        if (obj1Keys.length !== obj2Keys.length) {
+          return false;
+        }
+        // 5. 开始递归，以 obj1为基准递归判断 obj2的值
+        // 若为基础数据类型则通过 1. 来判断，若扔为引用数据类型则继续 直到再次递归，并再次进行基础数据类型比较
+        // 并返回到 res 进行下一次或结束
+        for (let key in obj1) {
+          const res = isEqual(obj1[key], obj2[key]);
+          if (!res) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      function isObject(obj) {
+        // return Object.prototype.toString.call(obj) === '[object Object]';
+        return typeof obj === "object" && obj !== null;
+      }
+      console.dir(console);
+    </script>
+  </body>
+</html>

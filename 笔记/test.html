@@ -18,6 +18,12 @@
       //     timer
       //   );
       // }
+
+
+      /* 
+          findTopSum([1, 2, 4, 4, 3,3, 5,6,7 ,8 ,8], 1, 4);
+          将数组中第 k大和第 m大的值相加
+      */
       // function findTopSum(arr, k, m) {
       //   function compare(val1, val2) {
       //     return val1 - val2;
@@ -39,25 +45,33 @@
       // }
       // findTopSum([1, 2, 4, 4, 3,3, 5,6,7 ,8 ,8], 1, 4);
 
-      // function adJoin(arr, condition) {
-      //   let innerArr = [];
-      //   let outArr = [];
-      //   arr.forEach((resultItem, index) => {
-      //     if (condition(resultItem)) {
-      //       innerArr.push(resultItem);
-      //     } else {
-      //       if (innerArr.length > 0) {
-      //         outArr.push(innerArr);
-      //       }
-      //       outArr.push(resultItem);
-      //       innerArr = [];
-      //     }
-      //   });
-      //   if (innerArr.length > 0) {
-      //     outArr.push(innerArr);
-      //   }
-      //   return outArr;
-      // }
+      /* 
+        adJoin([1, 2, 3, 4, 5], (item) => item < 3);   // [[1,2],3,4,5]
+        adJoin([1, 2, 3, 4, 5], (item) => item !== 3);   // [[1,2],3,[4,5]]
+      */
+      function adJoin(arr, condition) {
+        //创建两个数组
+        let innerArr = [];
+        let outArr = [];
+        //遍历 arr，并将每一个值传入 condition做比较
+        arr.forEach((resultItem, index) => {
+          // 将符合的值推入 innerArr，如果遇到不符合的值则判断 innerArr中是否有值并推入outArr，然后清空innerArr
+          if (condition(resultItem)) {
+            innerArr.push(resultItem);
+          } else {
+            if (innerArr.length > 0) {
+              outArr.push(innerArr);
+            }
+            outArr.push(resultItem);
+            innerArr = [];
+          }
+        });
+        // 将最后一次判断的值推入 outArr
+        if (innerArr.length > 0) {
+          outArr.push(innerArr);
+        }
+        return outArr;
+      }
       // adJoin([1, 2, 3, 4, 5], (item) => item < 3);
 
 
@@ -111,6 +125,43 @@
       EatMan("Hank").eat('supper').eatFirst('lunch').eatFirst('breakfast')
       next()
       
+
+
+
+
+
+
+      function dec(fn, wait, ins) {
+        let timer = null
+        const deced = function () {
+          const context = this
+          const arr = arguments
+          if(timer){
+            clearTimeout(timer)
+          }
+          const canIns = !timer
+          if(ins){
+            timer = setTimeout(function () {
+              timer = null
+            }, wait)
+            if(canIns){
+              fn.apply(context, arr)
+            }
+          }else{
+            timer = setTimeout(function () {
+              fn.apply(context, arr)
+            }, wait)
+          }
+        }
+        deced.cen = function(){
+          clearTimeout(timer)
+          timer = null 
+        }
+        return deced
+      }
+
+
+
     </script>
   </body>
 </html>
