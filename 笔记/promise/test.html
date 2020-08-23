@@ -13,7 +13,24 @@
 //  new Promise((resolve,reject)=>{
 //     resolve(2)
 //   })
-  console.dir(Promise);
+  // console.dir(Promise);
+  const promise = new Promise((resolve, reject) => {
+            console.log(1); // 1
+            resolve(9);
+            throw ( '212312')
+
+            reject()
+            console.log(2);
+        })
+        console.log(promise);
+        promise.then((v) => {
+            console.log(v);
+        },(err) => {
+            console.log(err+"失败的状态")
+        })
+
+        console.log(4);
+
 </script>
 </body>
 </html>
