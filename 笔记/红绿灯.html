@@ -3,10 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <title>Title</title>
-    <style type="text/css"></style>
+    <style type="text/css">
+    
+    
+    #box{
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      background-color: red;
+    }
+    </style>
   </head>
   <body>
+
+    <div id="box"></div>
     <script type="text/javascript">
+    console.log(document.querySelector('#box').getBoundingClientRect())
       // new Promise((resolve) => {
       //     resolve(1);
       // }).then((data) => {
