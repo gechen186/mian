@@ -14,7 +14,7 @@
       let timer = null;
       input1.addEventListener(
         "keyup",
-        throttle(
+        debounce(
           (event) => {
             console.log(this, event.target.value);
             // if(timer){
@@ -26,14 +26,14 @@
             // }, 1000)
           },
           1000,
-          false
+          true
         ),
         false
       );
 
       function debounce(fn, wait, immediate) {
         // 定时器返回值
-        let timeout = null;
+        let timeout = null; 1
         // fn函数返回值
         let result = null;
 
@@ -53,6 +53,7 @@
             timeout = setTimeout(() => {
               timeout = null;
             }, wait);
+            console.log();
             if (callNow) {
               result = fn.apply(context, args);
             }

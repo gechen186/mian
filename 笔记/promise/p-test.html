@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script src="./HD.js"></script>
+    <!-- <script src="./p-test.js"></script> -->
+    <script type="text/javascript">
+      let p = new HD((resolve, reject) => {
+          resolve("解决->then");
+      });
+      console.log(p);
+      p.then((value1) => {
+        console.log(value1);
+        return 'adasdsa'
+      }).then((value2) => {
+        console.log(value2);
+      }).then((value3) => {
+        console.log(value3);
+      })
+      
+      // new Promise((reslove, reject) => {
+      //   // setTimeout(() => {
+      //     reject("解决");
+      //   // }, 1000);
+      // }).then((value)=>{
+      //   let a = 1
+      //   console.log(value);
+      // }).catch((error)=>{
+      //   console.log(error+"error");
+      //   return a
+      // }).catch((error)=>{
+      //   console.log(error+"   error2");
+      // }).then((value)=>{
+      //   console.log(value);
+      // })
+      // console.log('同步');
+    </script>
+  </body>
+</html>

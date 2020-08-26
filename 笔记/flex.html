@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css">
+      .parent {
+        display: flex;
+        width: 600px;
+      }
+      .parent > div {
+        height: 100px;
+      }
+      .item-1 {
+        background-color: red;
+        width: 140px;
+        flex: 2 1 0%;
+      }
+      .item-2 {
+        background-color: blue;
+        width: 100px;
+        flex: 2 1 auto;
+      }
+      .item-3 {
+        background-color: yellow;
+        flex: 1 1 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      <div class="item-1"></div>
+      <div class="item-2"></div>
+      <div class="item-3"></div>
+    </div>
+
+    <script type="text/javascript">
+      // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(async (item, index) => {
+      //   await new Promise((resolve, reject) => {
+      //     setTimeout(function () {
+      //       resolve(index);
+      //       console.log(index);
+      //     }, 1000);
+      //   });
+      // });
+      // async function test() {
+      //   for (let i = 0; i < 5; i++) {
+      //     await new Promise((resolve, reject) => {
+      //       setTimeout(function () {
+      //         if(i === 2){
+      //           reject('666')
+      //         }
+      //         resolve(i);
+      //         console.log(i);
+      //       }, 1000);
+      //     });
+      //   }
+      // }
+      // test()
+
+        
+      for(var i=0;i<4;i++){
+        var timer=setInterval(function(i,timer){
+          console.log(timer);
+          console.log(i+'i');
+          clearInterval(timer)
+        },1000,i,timer);
+      }
+    </script>
+  </body>
+</html>

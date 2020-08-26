@@ -7,17 +7,13 @@
   </head>
   <body>
     <script type="text/javascript">
-      // for (var i = 0; i < 4; i++) {
-      //   var timer = setInterval(
-      //     function (i, timer) {
-      //       console.log(i);
-      //       clearInterval(timer);
-      //     },
-      //     10,
-      //     i,
-      //     timer
-      //   );
-      // }
+      for (var i = 0; i < 4; i++) {
+        var timer = setTimeout(
+          function (i, timer) {
+            console.log(i);
+            clearTimeout(timer);
+          },10,i,timer);
+      }
 
 
       /* 

@@ -20,6 +20,7 @@
           }
           return a[1] - b[1];
         });
+        console.log(arr);
         // 取出数组第一个值来对后边进行比对，并以此为比较点
         let intersection = arr.shift();
         let arr2 = []
@@ -31,6 +32,7 @@
           ) {
             // 若不重叠 而且因为已经排序 则表示 intersection 已经与后边所有数均不重叠，可以推进新数组
             arr2.push(intersection)
+            console.log(intersection, arr[index]);
             if(intersection.toString() !== arr[index].toString()){
               intersection = arr[index];
             }
