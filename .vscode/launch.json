@@ -1,0 +1,11 @@
+{    
+  "version": "0.2.0",    
+  "configurations": [
+      {            
+          "type": "pwa-chrome",            
+          "request": "launch",            
+          "name": "调试 Vue 的调用走向",            
+          "file": "${workspaceRoot}/vue-dev/examples/demo/index.html",
+      }
+  ]
+}

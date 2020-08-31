@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<!-- <a href="https://ustbhuangyi.github.io/vue-analysis/v2/prepare/">Vue源码分析</a> -->
+
+<script type='text/javascript'>
+/*     
+    ├── compiler        # temlate => rander 编译相关 
+
+    ├── core            # 核心代码 
+      ── components
+        ──keep-alive.js  内置组件
+      ── instance 
+        ── rander-helpers 渲染辅助函数
+        ── init.js 初始化
+        ── lifecycle.js 生命周期
+      ── observer 响应式数据相关
+
+    ├── platforms       # 不同平台的支持
+    ├── server          # 服务端渲染
+    ├── sfc             # .vue 文件解析
+    ├── shared          # 共享代码 
+
+
+    Vue本身是一个函数 （src\core\instance\index.js）  文件中的 Mixin分别往 Vue这个类中挂载了很多方法，这样写的好处是
+    可以分不同文件来管理不同的方法
+    包括入口 （src\platforms\web\entry-runtime-with-compiler.js） 
+     global-api（src\core\global-api）
+    等文件都是往 Vue上挂载
+    Vue的初始化是定义 Vue的全局和静态方法方法
+
+*/
+</script>
+</body>
+</html>

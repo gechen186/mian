@@ -32,7 +32,7 @@
           ) {
             // 若不重叠 而且因为已经排序 则表示 intersection 已经与后边所有数均不重叠，可以推进新数组
             arr2.push(intersection)
-            console.log(intersection, arr[index]);
+            console.log(intersection, arr[index].toString());
             if(intersection.toString() !== arr[index].toString()){
               intersection = arr[index];
             }
