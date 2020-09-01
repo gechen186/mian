@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+function add(...agrs) {
+        const agrsLength = agrs.length;
+        let res = 0;
+        if (agrsLength > 1) {
+          res = agrs.reduce((a,b)=>{
+            return a+b
+          })
+          // for (const item of agrs) {
+          //   res += item
+          // }
+          return res
+        }else if(agrsLength === 1){
+          function sum(b) {
+            console.log(b);
+            res = agrs[0] + b
+           return sum
+          }
+          sum.toString = function(){
+            return res
+          }
+          return sum
+        }
+      }
+      console.log(add(2,3,5));
+</script>
+</body>
+</html>

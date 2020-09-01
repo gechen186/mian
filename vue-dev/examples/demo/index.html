@@ -10,14 +10,19 @@
 <body>
 
   <div id="app">
-    {{message}}
+    <div>{{message}}</div>
   </div>
   <script src="../../dist/vue.js"></script>
   <script>
     new Vue({
       el: "#app",
+      mounted() {
+        
+      },
+      // template:'<div style="color:red">{{message2}}</div>',
       data: {
         message: "Hello Vue!",
+        message2: "Hello Vue message2!",
       },
     });
   </script>

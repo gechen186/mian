@@ -340,6 +340,39 @@
       // });
 
       // console.log("script end");
+
+
+
+      /* 
+      实现 add(2,3,5), add(2)(3)(5)
+      function add(...agrs) {
+        const agrsLength = agrs.length;
+        let res = 0;
+        if (agrsLength > 1) {
+          // res = agrs.reduce((a,b)=>{
+          //   return a+b
+          // })
+          for (const item of agrs) {
+            res += item
+          }
+          return res
+        }else if(agrsLength === 1){
+          function sum(b) {
+            console.log(b);
+            res = agrs[0] + b
+           return sum
+          }
+          sum.toString = function(){
+            return res
+          }
+          return sum
+        }
+      }
+
+      // console.log(add(2, 3,5));
+      console.log(add(2)(3));
+      
+      */
     </script>
   </body>
 </html>
