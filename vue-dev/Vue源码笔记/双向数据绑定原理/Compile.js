@@ -1,4 +1,3 @@
-// 2模板编译
 class Compile {
   constructor(el, vm) {
     this.el = this.isElementNode(el) ? el : document.querySelector(el);
@@ -35,12 +34,13 @@ class Compile {
     return fragment;
   }
   compile(fragment) {
+    //拿到所有子节点
     let childNodes = fragment.childNodes; //伪数组
     Array.from(childNodes).forEach((node) => {
-      // 因为node2fragment 会带有换行或空行所以需要过滤
+      // 2-3. 因为 node2fragment 会带有换行或空行所以需要过滤进行分别调用
       if (this.isElementNode(node)) {
         this.compileElement(node);
-        this.compile(node);
+        this.compile(node); //递归至所有节点，指导只剩下 text类型
         // console.log(node);
       } else {
         this.compileText(node);
@@ -56,16 +56,18 @@ class Compile {
     //遍历 DOM上所有的 属性拿到 v- 的指令
     Array.from(attrs).forEach((attr) => {
       let attrName = attr.name;
+      // 2-4. 得到 v- 指令的 key和value （区分指令的作用）
+      // 根据后边的 model或其他值 进行 compileUtil工具函数调用
       if (isDirective(attrName)) {
-        // 得到 v- 指令的 key和value （区分指令的作用）
         let expr = attr.value;
-        let type = attrName.split("-");
+        let [, type] = attrName.split("-");
         // console.log(type, expr);
-        compileUtil[type[1]](node, this.vm, expr);
+        compileUtil[type](node, this.vm, expr);
       }
     });
   }
   compileText(node) {
+    // 2-5. 如果文本中有 {{}} 调用 compileUtil工具函数
     let expr = node.textContent;
     // console.log(node, expr);
     let reg = /\{\{([^}]+)\}\}/g; // 正则是否包含{{}}
@@ -80,26 +82,56 @@ const compileUtil = {
     // 文本处理
     let updateFn = this.updater["textUpdater"];
     let value = this.getTextVal(vm, expr);
-    updateFn && updateFn(node, value);
+    expr.replace(/\{\{([^}]+)\}\}/g, (...arguments) => {
+      new Watcher(vm, arguments[1], (newValue) => {
+        // 如果数据变化了，文本节点需要重新获取依赖的属性更新文本中的内容
+        updateFn && updateFn(node, this.getTextVal(vm, expr));
+      });
+    });
+
+    updateFn && updateFn(node, value); // node.textContent = value;
   },
   model(node, vm, expr) {
     // 输入框处理
     let updateFn = this.updater["modelUpdater"];
+    new Watcher(vm, expr, (newValue) => {
+      // 当值变化后会调用cb 将新的值传递过来
+      updateFn && updateFn(node, newValue);
+    });
+    node.addEventListener("input", (e) => {
+      let newValue = e.target.value;
+      // 监听输入事件将输入的内容设置到对应数据上
+      this.setVal(vm, expr, newValue);
+    });
+
     // 这里应该加一个监控 数据变化了 应该调用这个watch的callback
-    updateFn && updateFn(node, this.getVal(vm, expr));
+    // 如果是 model的形式 .需要多进行一步分割，然后再替换{{值}}
+    updateFn && updateFn(node, this.getVal(vm, expr)); // node.value = value;
+  },
+  setVal(vm, expr, value) {
+      expr = expr.split(".");
+    return expr.reduce((prev, next, currentIndex) => {
+      if (currentIndex === expr.length - 1) {
+        return (prev[next] = value);
+      }
+      return prev[next];
+    }, vm.$data);
   },
 
   getTextVal(vm, expr) {
-    return expr.replace(/\{\{([^}]+)\}\}/g, (...arguments) => {
+    let res = expr.replace(/\{\{([^}]+)\}\}/g, (...arguments) => {
       // 依次去去数据对应的值
-      return this.getVal(vm, arguments[1]);
+      return this.getVal(vm, arguments[1]); // arguments[1]是，message.b.c
     });
+
+    return res;
   },
   getVal(vm, expr) {
-    expr = expr.split("."); // {{message.a}}{{message.b}}
+      expr = expr.split(".");
+    // {{message.a}}{{message.b.c}}
     return expr.reduce((prev, next) => {
       return prev[next];
-    }, vm.$data);
+    }, vm.$data); //相当于 vm.$data[prev[next]]
   },
   updater: {
     textUpdater(node, value) {
@@ -110,6 +142,3 @@ const compileUtil = {
     },
   },
 };
-module.exports = {
-  Compile:Compile
-}

@@ -7,17 +7,25 @@
 
 </style>
 </head>
+
 <body>
 
   <div id="app">
-    <div>{{message}}</div>
+    <!-- <div>{{message}}</div> -->
   </div>
   <script src="../../dist/vue.js"></script>
   <script>
     new Vue({
       el: "#app",
+      render(createElement){
+        return createElement('div', {
+          attrs: {
+            id: 'app2'
+          }
+        }, this.message2)
+      },
       mounted() {
-        
+        this.$nextTick(1)
       },
       // template:'<div style="color:red">{{message2}}</div>',
       data: {
@@ -25,6 +33,12 @@
         message2: "Hello Vue message2!",
       },
     });
+    
+    for(var i=0; i<5; i++) {
+      setTimeout(function(i) {
+        console.log(i);
+      }, 1000, i)
+    }
   </script>
 </html>
 
