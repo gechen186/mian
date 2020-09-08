@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css">
+      html {
+        height: 100%;
+      }
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      #app {
+        height: 100%;
+      }
+      .warpper {
+        height: 100%;
+        overflow: auto;
+        position: relative;
+        /* -webkit-overflow-scrolling: touch; */
+      }
+      .scroll-line {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        z-index: -1;
+      }
+      .list-wrapper {
+        /* height: 500px; */
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="warpper" ref="list" @scroll="scrollHandler">
+        <div class="scroll-line" :style="{ height: scrollLine + 'px' }"></div>
+        <div class="list-wrapper" :style="{ transform: getTransform }">
+          <div
+            class="list-item"
+            v-for="(item, index) in showData"
+            :key="item.id"
+            :style="{height: itemSize + 'px', lineHeight: itemSize+'px' }"
+          >
+            {{item.value}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../../dist/vue.js"></script>
+    <script type="text/javascript">
+      let arr = [];
+      for (let index = 0; index < 1000; index++) {
+        arr.push({ id: index + 1, value: index + 1 });
+      }
+      const vm = new Vue({
+        el: "#app",
+        data() {
+          return {
+            listData: arr,
+            //开始的index
+            startIndex: 0,
+            //末尾index
+            endIndex: 20,
+            //容器的整体高度
+            screenHeight: 0,
+            //单个的高度
+            itemSize: 80,
+            transformY: 0,
+          };
+        },
+        mounted() {
+          this.screenHeight = this.$el.clientHeight;
+          this.endIndex = this.startIndex + this.showDataNum;
+        },
+        computed: {
+          scrollLine() {
+            return this.itemSize * this.listData.length;
+          },
+          showDataNum() {
+            return Math.ceil(this.screenHeight / this.itemSize);
+          },
+          getTransform() {
+            return `translate3d(0,${this.transformY}px,0)`;
+          },
+          showData() {
+            return this.listData.slice(this.startIndex, this.endIndex);
+          },
+        },
+        methods: {
+          scrollHandler() {
+            let scrollTop = this.$refs.list.scrollTop;
+            this.startIndex = Math.floor(scrollTop / this.itemSize);
+            this.endIndex = this.startIndex + this.showDataNum;
+            this.transformY = scrollTop - (scrollTop % this.itemSize);
+            console.log(scrollTop, scrollTop - (scrollTop % this.itemSize));
+          },
+        },
+      });
+
+      // var a = {
+      //   num: 0,
+      //   valueOf(){
+      //    return  ++this.num
+      //   }
+      // };
+      // if(a == 1 && a == 2 && a == 3){
+      //    console.log(a);
+      // }
+    </script>
+  </body>
+</html>

@@ -19,7 +19,7 @@
                     立刻启动循环查找 Callback Queue内是否有可调用的回调函数
 
       例如下边的代码运行流程
-      1. 首先 console.log('Hi') 进入 Call Stack 调用 然后在Browser console 打印出Hi
+      1. 首先 console.log('Hi') 进入 Call Stack 调用 然后在 Browser console 打印出 Hi
       因为此时 console.log('Hi')已运行完，所以会被 Call Stack清除。
       2. 运行到 setTimeout定时器，将 setTimeout放入 Call Stack后，
       此时将回调 cb1放入Web APIs设置定时器 定时5s，并将 setTimeout 清除。

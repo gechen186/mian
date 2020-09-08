@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+  <ul id="container"></ul>  
+<script type='text/javascript'>
+/* 
+  1. 时间片段方法
+  因为 浏览器每次绘制页面都是在执行栈为空的时候进行绘制，而且每次宏任务结束后均会进行绘制
+  且宏任务 setTimeout或 setInterval的时间不稳定
+  所以此方法主要是使用 window.requestAnimationFrame 来根据浏览器的帧数频率来进行绘制
+  并且通过 document.createDocumentFragment() 来对 DOM操作进行一个内存化，减少 DOM的操作
+  每次修改 DOM都是一次性将所有的 DOM元素进行修改
+*/
+//需要插入的容器
+// let ul = document.getElementById('container');
+// // 插入十万条数据
+// let total = 1000;
+// // 一次插入 20 条
+// let once = 20;
+// //总页数
+// let page = total/once
+// //每条记录的索引
+// let index = 0;
+// //循环加载数据
+// function loop(curTotal,curIndex){
+//   console.log(curTotal,curIndex);
+
+//     if(curTotal <= 0){
+//         return false;
+//     }
+//     //每页多少条
+//     let pageCount = Math.min(curTotal , once);
+//     window.requestAnimationFrame(function(){
+//         let fragment = document.createDocumentFragment();
+//         for(let i = 0; i < pageCount; i++){
+//             let li = document.createElement('li');
+//             li.innerText = curIndex + i +1
+//             fragment.appendChild(li)
+//         }
+//         ul.appendChild(fragment)
+//         loop(curTotal - pageCount,curIndex + pageCount)
+//     })
+// }
+// loop(total,index);
+
+// --------------------------------------------------------------------------------------
+
+
+/* 
+  第二种方法是虚拟列表    
+  Demo 代码在 vue-dev\examples\虚拟列表\index.html
+*/
+
+// document.getElementById('button').addEventListener('click',function(){
+//     // 记录任务开始时间
+//     let now = Date.now();
+//     // 插入一万条数据
+//     const total = 10000;
+//     // 获取容器
+//     let ul = document.getElementById('container');
+//     // 将数据插入容器中
+//     for (let i = 0; i < total; i++) {
+//         let li = document.createElement('li');
+//         li.innerText = ~~(Math.random() * total)
+//         ul.appendChild(li);
+//     }
+//     console.log('JS运行时间：',Date.now() - now);
+//     setTimeout(()=>{
+//       console.log('总运行时间：',Date.now() - now);
+//     },0)
+
+//     // print JS运行时间： 38
+//     // print 总运行时间： 957 
+//   })
+
+</script>
+</body>
+</html>

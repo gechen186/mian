@@ -64,16 +64,47 @@
       /**
        * bind
        */
-      Function.prototype.bind1 = function (...args) {
-        // 获取 this（数组第一项）
-        const t = args.shift();
+      // Function.prototype.bind1 = function (...args) {
+      //   // 获取 this（数组第一项）
+      //   const t = args.shift();
 
-        // 返回一个函数
-        return function () {
-          return this.apply(t, args);
+      //   // 返回一个函数
+      //   return function () {
+      //     return this.apply(t, args);
+      //   };
+      // };
+      Function.prototype.bind2 = function (...args) {
+
+        const self = this;
+        const context = args.shift();
+
+        var Fnop = function () {};
+        var Fbound = function (...innerArgs) {
+          return self.apply(
+            this instanceof Fnop ? this : context,
+            args.concat(innerArgs)
+          );
         };
+        Fnop.prototype = self.prototype;
+        Fbound.prototype = new Fnop();
+        return Fbound;
       };
-      test.bind1({ x: 1 }, 100, 200)();
+      var foo = {
+        value: 1,
+      };
+
+      function bar(name, age) {
+        this.habit = "shopping";
+        console.log(this.value);
+        console.log(name);
+        console.log(age);
+      }
+      bar.prototype.friend = "kevin";
+      var bindFoo = bar.bind2(foo, "daisy");
+      console.log(bindFoo, "bindFoo");
+      var obj = new bindFoo("18");
+      //  const fnTest =  test.bind2({ x: 1 }, 100, 200)();
+      //   console.log(fnTest, 'fnTest');
 
       /**
        * 创建一个new

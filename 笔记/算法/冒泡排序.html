@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      const arr = [5, 2, 7, 8, 34, 7, 39, 12, 56, 9, 1];
+
+      function test(arr) {
+        const len = arr.length
+        for (let i = 0; i < len; i++) {
+          for (let j = 1; j < len - i; j++) {
+            if(arr[j-1]>arr[j])
+            [arr[j-1], arr[j]] = [arr[j], arr[j-1]]
+          }
+        }
+        return arr
+      }
+
+      // function bubbleSort(arr) {
+      //   const len = arr.length;
+      //   // 外层循环i控制比较的轮数
+      //   for (let i = 0; i < len; i++) {
+      //     // 里层循环控制每一轮比较的次数j，arr[i] 只用跟其余的len - i个元素比较
+      //     for (let j = 1; j < len - i; j++) {
+      //       console.log(i, j, arr[i], arr[j],'j');
+      //       // 若前一个元素"大于"后一个元素，则两者交换位置
+      //       if (arr[j - 1] > arr[j]) {
+      //         [arr[j - 1], arr[j]] = [arr[j], arr[j - 1]];
+      //       }
+      //     }
+      //   }
+      //   return arr;
+      // }
+      console.log(test(arr)); // [1, 2,  5,  7,  7, 8, 9, 12, 34, 39, 56]
+    </script>
+  </body>
+</html>
