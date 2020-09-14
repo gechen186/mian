@@ -7,8 +7,7 @@
   </head>
   <body>
     <div id="app">
-      {{a}}
-      {{b}}
+      {{obj.test}}
     </div>
     <script src="./watcher.js"></script>
     <script src="./observer.js"></script>
@@ -18,13 +17,29 @@
       let vm = new MVVM({
         el: "#app",
         data: {
-          a:1,
-          b: 'b'
+          obj:{test:1}
+        },
+        created() {
+          setTimeout(()=>{
+            this.obj.test = 2
+          },1000)
+        },
+        computed: {
+          testC(){
+            return this.c
+          }
+        },
+        watch: {
+          obj:{
+            handler(newV){
+              console.log(newV);
+            },
+            deep: true,
+            immediate: true
+          }
         },
       });
-      vm.a = 2
-      vm.a = 3
-      vm.a = 4
+      vm.c = 'c'
     </script>
   </body>
 </html>

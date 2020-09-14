@@ -1,50 +1,80 @@
 <!DOCTYPE html>
-<html lang='en'>
-<head>
-<meta charset='UTF-8'>
-<title>Title</title>
-<style type='text/css'>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      /* 
+        实现一个 EatMan
+        示例：
+          1. EatMan("Hank")输出：
+            Hi! This is Hank!
+          2. EatMan("Hank").eat('dinner').eat('supper')输出：
+            Hi! This is Hank!
+            Eat dinner
+            Eat supper
+          3. EatMan("Hank").eat('supper').eatFirst('lunch').eatFirst('breakfast')输出：
+            Eat breakfast
+            Eat lunch
+            Hi! This is Hank!
+            Eat supper
+      */
 
-</style>
-</head>
-<body>
+      // let arr = [];
+      // function EatMan(name) {
+      //   arr.push(function () {
+      //     console.log(`Hi! This is ${name}!`);
+      //   });
+      //   setTimeout(async () => {
+      //     for (const fn of arr) {
+      //       await fn();
+      //     }
+      //   }, 0);
+      //   return new Eat();
+      // }
+      // function Eat() {}
+      // Eat.prototype.eat = function (params) {
+      //   arr.push(function () {
+      //     return new Promise((resovle) => {
+      //       console.log(`eat ${params}`);
+      //       resovle();
+      //     });
+      //   });
+      //   return this;
+      // };
+      // Eat.prototype.eatFirst = function (params) {
+      //   arr.unshift(function () {
+      //     return new Promise((resovle) => {
+      //         console.log(`eat ${params}`);
+      //         resovle();
+      //     });
+      //   });
+      //   return this;
+      // };
+      // EatMan("Hank").eat("supper").eatFirst("lunch").eatFirst("breakfast");
 
-<script type='text/javascript'>
+      function test(sum) {
+        let arr = null;
+        if (typeof sum === "number") {
+          arr = sum.toString().split("");
+        }
+        if (arr.length > 0) {
+          setTimeout(() => {
+            console.log(arr.pop());
+            test();
+          });
+        }
 
-function Foo(){
-  Foo.a = function(){
-    console.log(1)
-  }
-  this.a = function (params) {
-    console.log(2);
-  }
-  return {}
-}
-Foo.prototype.a = function (params) {
-  console.log(3);
-}
-Foo.a = function (params) {
-  console.log(4);
-}
-Foo.a() // 4
-// console.log(obj);
-obj.a() //2
-Foo.a() //1
+        // function strFn(params) {
 
+        // }
 
-
-// var a={}
-// var b=[{
-//   key:'123'
-// }]
-// var c=[{
-//   key:'456'
-// }]
-
-// a[b]='b'
-// a[c]='c'
-// console.log(a,a['[object Object]'],a[b], a[c]);
-</script>
-
-</body>
+        // return str
+      }
+      let res = test(12345);
+    </script>
+  </body>
 </html>

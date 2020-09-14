@@ -11,34 +11,41 @@
 <body>
 
   <div id="app">
-    <!-- <div>{{message}}</div> -->
+    <div>{{obj.test}}</div>
   </div>
   <script src="../../dist/vue.js"></script>
   <script>
     new Vue({
       el: "#app",
-      render(createElement){
-        return createElement('div', {
-          attrs: {
-            id: 'app2'
-          }
-        }, this.message2)
-      },
+      // render(createElement){
+      //   return createElement('div', {
+      //     attrs: {
+      //       id: 'app2'
+      //     }
+      //   }, this.message2)
+      // },
       mounted() {
         // this.$nextTick(1)
       },
-      // template:'<div style="color:red">{{message2}}</div>',
+      template:'<div style="color:red">{{def }}</div>',
       data: {
-        message: "Hello Vue!",
-        message2: "Hello Vue message2!",
-      },
+          obj:{test:1}
+        },
+        created() {
+          this.abc = 'abc'
+
+          setTimeout(()=>{
+            this.abc = 'def'
+            console.log(this.abc);
+          },1000)
+        },
+        computed: {
+          def(){
+            return this.abc
+          }
+        },
     });
     
-    for(var i=0; i<5; i++) {
-      setTimeout(function(i) {
-        console.log(i);
-      }, 1000, i)
-    }
   </script>
 </html>
 
