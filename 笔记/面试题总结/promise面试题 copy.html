@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      /* 
+      1. 将 img的 url包裹为 promise数组
+      2. 将数组 分割为符合最大 max的数组
+      3. 通过 for of 遍历每一个子数组进行并发调用 并且通过 promiseAll接收 then的返回值
+  */
+      const baseUrl = "http://img.aizhifou.cn/";
+      const urls = [
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png",
+        "9.png",
+        "10.png",
+      ];
+
+      // const loadImg = (url, index) => {
+      //   return function (params) {
+      //     return new Promise((resolve, reject) => {
+      //       const img = new Image();
+      //       img.onload = function () {
+      //         if(index === 4){
+      //           setTimeout(()=>{
+      //             resolve(url);
+      //           }, 2000)
+      //         }else{
+      //           resolve(url);
+      //         }
+      //       };
+      //       img.onerror = function () {
+      //         reject(url);
+      //       };
+      //       img.src = baseUrl + url;
+      //     });
+      //   };
+      // };
+      // let imgPromiseArr = [];
+      // urls.forEach((url, index) => {
+      //   imgPromiseArr.push(loadImg(url, index));
+      // });
+      const ajaxP = (wait, id) => {
+        return function () {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve(id);
+            }, wait);
+          });
+        };
+      };
+      let imgPromiseArr = [
+        ajaxP(1000, 1),
+        ajaxP(3000, 2),
+        ajaxP(0, 3),
+        ajaxP(0, 4),
+        ajaxP(1000, 5),
+        ajaxP(1000, 6),
+        ajaxP(3000, 7),
+        ajaxP(1000, 8),
+      ];
+      const sendRequest = async (urls = [], max = 3) => {
+        if (urls.length === 0) {
+          return;
+        }
+        let resultArr = [];
+        const len = urls.length;
+        for (let i = 0; i < len; i += max) {
+          resultArr.push(urls.slice(i, i + max));
+        }
+
+        for (let result of resultArr) {
+          result = result.map((fn) => fn());
+          await PromiseAll(result).then((res) => {
+            console.log(res);
+          });
+        }
+      };
+      sendRequest(imgPromiseArr, 3);
+
+      function PromiseAll(arr) {
+        return new Promise((resolve, reject) => {
+          let result = [];
+          let num = 0;
+          function setData(data, index) {
+            num++;
+            result[index] = data;
+            if (num === arr.length) {
+              resolve(result);
+            }
+          }
+          arr.forEach((promise, index) => {
+            promise
+              .then((data) => {
+                setData(data, index);
+              })
+              .catch((data) => {
+                setData(null, index);
+              });
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

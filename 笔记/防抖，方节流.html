@@ -14,7 +14,7 @@
       let timer = null;
       input1.addEventListener(
         "keyup",
-        debounce(
+        throttle(
           (event) => {
             console.log(this, event.target.value);
             // if(timer){
@@ -31,9 +31,11 @@
         false
       );
 
+
+
       function debounce(fn, wait, immediate) {
         // 定时器返回值
-        let timeout = null; 1
+        let timeout = null;
         // fn函数返回值
         let result = null;
 
@@ -72,6 +74,24 @@
       }
       /* 节流是频繁输入以一个频率连续触发*/
 
+
+      function throttle(fn, wait) {
+        let context = null
+        let timeout = null
+        return function (...args) {
+          context = this
+          if(timeout){
+            return false
+          }
+          timeout = setTimeout(()=>{
+            fn.apply(context, ...args)
+            timeout = null
+          }, wait)
+        }
+
+        
+      }
+
       // function throttle(fn, wait){
       //   let context = null
       //   let previous = 0
@@ -85,25 +105,19 @@
       //     }
       //   }
       // }
-      function throttle(fn, wait, immediate) {
+      function throttle(fn, wait) {
         let context = null;
         let timer = null;
-        return function () {
+        return function (...args) {
           // let now = +new Date()
-          let args = [...arguments];
-
           context = this;
           if (timer) {
             return false;
           }
           timer = setTimeout(function () {
-            fn.apply(context, args);
+            fn.apply(context, ...args);
             timer = null;
           }, wait);
-          // if(now - previous > wait){
-          //   fn.apply(context, args)
-          //   previous = now
-          // }
         };
       }
     </script>

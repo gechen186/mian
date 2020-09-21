@@ -7,21 +7,28 @@
   </head>
   <body>
     <script type="text/javascript">
-      /* 
-        实现一个 EatMan
-        示例：
-          1. EatMan("Hank")输出：
-            Hi! This is Hank!
-          2. EatMan("Hank").eat('dinner').eat('supper')输出：
-            Hi! This is Hank!
-            Eat dinner
-            Eat supper
-          3. EatMan("Hank").eat('supper').eatFirst('lunch').eatFirst('breakfast')输出：
-            Eat breakfast
-            Eat lunch
-            Hi! This is Hank!
-            Eat supper
-      */
+      var num = {
+        a: 10,
+        add:function() {
+          console.log(this.a);
+        }
+      };
+      console.log(num.add());
+      /*
+              实现一个 EatMan
+              示例：
+                1. EatMan("Hank")输出：
+                  Hi! This is Hank!
+                2. EatMan("Hank").eat('dinner').eat('supper')输出：
+                  Hi! This is Hank!
+                  Eat dinner
+                  Eat supper
+                3. EatMan("Hank").eat('supper').eatFirst('lunch').eatFirst('breakfast')输出：
+                  Eat breakfast
+                  Eat lunch
+                  Hi! This is Hank!
+                  Eat supper
+            */
 
       // let arr = [];
       // function EatMan(name) {
