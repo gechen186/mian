@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css">
+      .box {
+        width: 200px;
+        height: 200px;
+      }
+      .box2{
+        background-color: rgb(222,222,222);
+        transition:1s;
+      }
+      .box2:hover{
+        background-color: grey;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box box2" ></div>
+    <div class="box" style="background-color: yellow"></div>
+    <div class="box" style="background-color: blue"></div>
+    <div class="box" style="background-color: rgba(111,111,111,1)"></div>
+
+    <script type="text/javascript">
+      const box = document.querySelectorAll(".box");
+      let reuslt = [];
+      box.forEach((item) => {
+        // console.log(getComputedStyle(item).backgroundColor);
+        reuslt.push(getComputedStyle(item).marginTop);
+        // console.log(getComputedStyle(item,'::hover').content);
+      });
+      console.log(reuslt);
+    </script>
+  </body>
+</html>

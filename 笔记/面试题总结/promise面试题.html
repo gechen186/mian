@@ -25,16 +25,16 @@
         return function () {
           return new Promise((resolve, reject) => {
             let img = new Image();
-            if (index === 5) {
-              img.onload = function () {
-                reject(baseUrl + url);
-              };
-            }else{
-              img.onload = function () {
-              resolve(baseUrl + url);
-              };
-            }
-            
+            img.onload = function () {
+              if (index === 5||index===9) {
+                setTimeout(() => {
+                  reject(baseUrl + url);
+                }, 2000);
+              } else {
+                resolve(baseUrl + url);
+              }
+            };
+
             img.onerror = function () {
               reject(baseUrl + url);
             };
@@ -46,7 +46,7 @@
         imgPromiseArr.push(loadImg(url, index));
       });
 
-      const sendRequest = async (urls = [], max = 0, callback = () => {}) => {
+      const sendRequest = async (urls = [], max = 0) => {
         if (urls.length === 0) {
           return urls;
         }
@@ -57,90 +57,41 @@
         for (let i = 0; i < len; i += max) {
           groupUrls.push(urls.slice(i, i + max));
         }
-
         for (let groupUrl of groupUrls) {
           const newGroupUrl = groupUrl.map((fn) => fn());
           await promiseAll(newGroupUrl).then((result) => {
             console.log(result);
           });
+          // await Promise.allSettled(newGroupUrl).then((result)=>{
+          //   result.forEach(({reason,value})=>{
+          //     console.log(reason,value);
+          //   })
+          // })
         }
       };
       sendRequest(imgPromiseArr, 3);
-
       function promiseAll(arr) {
-        return new Promise((resolve, reject)=>{
-          let result = []
-          let num = 0
-          function setData(data,index) {
-            result[index] = data
-            num++
-            if(num === arr.length){
-              resolve(result)
+        return new Promise((resolve, reject) => {
+          let result = [];
+          let num = 0;
+          function setData(data, index) {
+            result[index] = data;
+            num++;
+            if (num === arr.length) {
+              resolve(result);
             }
           }
-          arr.forEach((promise,index)=>{
-            promise.then(data=>{
-              setData(data,index)
-            }).catch((err)=>{
-              setData(null,index)
-            })
-          })
-        })
+          arr.forEach((promise, index) => {
+            promise
+              .then((data) => {
+                setData(data, index);
+              })
+              .catch((err) => {
+                setData(`Error：${err}`, index);
+              });
+          });
+        });
       }
-
-
-      // const p1 = () =>
-      //   new Promise((resolve, reject) =>
-      //     setTimeout(() => {
-      //       reject(1);
-      //     }, 1000)
-      //   );
-      // const p2 = () => Promise.resolve(2);
-      // const p3 = () =>
-      //   new Promise((resolve, reject) =>
-      //     setTimeout(() => {
-      //       resolve(3);
-      //     }, 2000)
-      //   );
-      // const p4 = () => Promise.resolve(4);
-      // const p5 = () =>
-      //   new Promise((resolve, reject) =>
-      //     setTimeout(() => {
-      //       reject(5);
-      //     }, 2000)
-      //   );
-      // const p6 = () => Promise.resolve(6);
-      // const p7 = () =>
-      //   new Promise((resolve, reject) =>
-      //     setTimeout(() => {
-      //       resolve(7);
-      //     }, 1000)
-      //   );
-      // const p8 = () => Promise.resolve(8);
-      // const p9 = () =>
-      //   new Promise((resolve, reject) =>
-      //     setTimeout(() => {
-      //       resolve(9);
-      //     }, 1000)
-      //   );
-      // const p10 = () => Promise.resolve(10);
-      // const p11 = () =>
-      //   new Promise((resolve, reject) =>
-      //     setTimeout(() => {
-      //       resolve(11);
-      //     }, 1000)
-      //   );
-      // const p12 = () => Promise.resolve(12);
-      // const p13 = () =>
-      //   new Promise((resolve, reject) =>
-      //     setTimeout(() => {
-      //       resolve(13);
-      //     }, 1000)
-      //   );
-      // const p14 = () => Promise.resolve(14);
-
-      // const ps = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14];
-      // sendRequest(ps, 3);
     </script>
   </body>
 </html>
