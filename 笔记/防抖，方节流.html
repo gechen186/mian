@@ -76,10 +76,9 @@
 
 
       function throttle(fn, wait) {
-        let context = null
         let timeout = null
         return function (...args) {
-          context = this
+        let context = this
           if(timeout){
             return false
           }
