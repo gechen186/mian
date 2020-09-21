@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // 顺序加载10张图片，图片地址已知，但是同时最多加载3张图片，要求用promise实现。
+      const baseUrl = "http://img.aizhifou.cn/";
+      const urls = [
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png",
+        "9.png",
+        "10.png",
+      ];
+      let imgPromiseArr = [];
+      const loadImg = (url, index) => {
+        return function () {
+          return new Promise((resolve, reject) => {
+            let img = new Image();
+            img.onload = function () {
+              resolve(baseUrl + url);
+            };
+            img.onerror = function () {
+              reject(baseUrl + url);
+            };
+            img.src = baseUrl + url;
+          });
+        };
+      };
+      urls.forEach((url, index) => {
+        imgPromiseArr.push(loadImg(url, index));
+      });
+
+      const sendRequest = async (urls = [], max = 0) => {
+        if (urls.length === 0) {
+          return urls;
+        }
+        //将 promise数组拆分
+        const len = urls.length;
+        const result = [];
+        let groupUrls = [];
+        for (let i = 0; i < len; i += max) {
+          groupUrls.push(urls.slice(i, i + max));
+        }
+
+        for (let groupUrl of groupUrls) {
+          const newGroupUrl = groupUrl.map((fn) => fn());
+          await promiseAll(newGroupUrl).then((result) => {
+            console.log(result);
+          });
+        }
+      };
+      sendRequest(imgPromiseArr, 3);
+
+      function promiseAll(arr) {
+        return new Promise((resolve, reject) => {
+          let result = [];
+          let num = 0;
+          function setData(data, index) {
+            result[index] = data;
+            num++;
+            if (num === arr.length) {
+              resolve(result);
+            }
+          }
+          arr.forEach((promise, index) => {
+            promise
+              .then((data) => {
+                setData(data, index);
+              })
+              .catch((err) => {
+                setData(null, index);
+              });
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+var isUnique = function(astr) {
+    astr = astr.split('')
+    const len = astr.length
+    for(let i=0; i<len; i++){
+        for(let j=i+1;j<len;j++){
+          console.log(astr[i],astr[j]);
+            if(astr[i] === astr[j]){
+              
+                return false;
+            }
+        }
+    }
+    return true
+};
+console.log(isUnique('abcde'));
+</script>
+</body>
+</html>

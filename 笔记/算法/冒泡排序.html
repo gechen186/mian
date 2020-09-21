@@ -7,17 +7,38 @@
   </head>
   <body>
     <script type="text/javascript">
-      const arr = [5, 2, 7, 8, 34, 7, 39, 12, 56, 9, 1];
+      function asyncPool(poolLimit, array, iteratorFn) {
+        let i = 0;
+        const ret = [];
+        const executing = [];
+        const enqueue = function () {
+          if (i === array.length) {
+            return Promise.resolve();
+          }
+          const item = array[i++];
+          const p = Promise.resolve().then(() => iteratorFn(item, array));
+          ret.push(p);
+          const e = p.then(() => executing.splice(executing.indexOf(e), 1));
+          executing.push(e);
+          let r = Promise.resolve();
+          if (executing.length >= poolLimit) {
+            r = Promise.race(executing);
+          }
+          return r.then(() => enqueue());
+        };
+        return enqueue().then(() => Promise.all(ret));
+      }
 
+      const arr = [5, 2, 7, 3];
       function test(arr) {
-        const len = arr.length
+        const len = arr.length;
         for (let i = 0; i < len; i++) {
           for (let j = 1; j < len - i; j++) {
-            if(arr[j-1]>arr[j])
-            [arr[j-1], arr[j]] = [arr[j], arr[j-1]]
+            if (arr[j - 1] > arr[j])
+              [arr[j - 1], arr[j]] = [arr[j], arr[j - 1]];
           }
         }
-        return arr
+        return arr;
       }
 
       // function bubbleSort(arr) {

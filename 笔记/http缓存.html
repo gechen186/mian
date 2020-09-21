@@ -36,10 +36,11 @@
     协商缓存（对比缓存）
       1. 服务端缓存策略，服务端判断客户端资源，是否和服务端资源一样
       2. 一致则返回304，否则返回 200和最新的资源
-      浏览器 -> 服务端 ->服务端返回资源，并返回一个资源标识（Last-Modified）（Etag）
+      浏览器 -> 服务端 ->服务端返回资源，并返回一个资源标识（Etag）（Last-Modified）
       浏览器再次请求时 Request Headers会携带资源标识
-      （if-Modified-Since，对应 Last-Modified）
       （if-None-Match，对应 Etag）
+      （if-Modified-Since，对应 Last-Modified）
+      
                         -> 
       若服务端判断标识一致则返回 304，否则返回新资源和新标识
 
@@ -52,6 +53,14 @@
       1. 通过 url，前进后退：强制缓存有效，协商缓存有效
       2. F5刷新           ：强制缓存无效，协商缓存有效
       3. 硬清除           ：强制缓存无效，协商缓存无效
+
+    Cache-control：no-catch
+                  no-store
+                  must-revalidate
+                  max-age
+
+      Etag if-none-match
+      last-modified  if-Modified-since
 
 
 */

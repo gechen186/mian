@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // function execter(arr) {
+      //     return new Promise((resolve) => {
+      //         let result = []; //数组
+      //         let num = 0; //计数器
+      //         function setData(data, index) {
+      //           // [1]
+      //             result[index] = data;
+      //             num++; //num ++
+      //             //当所有 promise的then 执行后将此promise  resolve
+      //             if (arr.length === num) {
+      //                 resolve(result);
+      //             }
+      //         }
+      //         //调用每一个 promise的 then/catch，在异步中操作
+      //         arr.forEach((promise, index) => {
+      //             promise
+      //                 .then(data => {
+      //                     setData(data, index);
+      //                 })
+      //                 .catch(err => {
+      //                     setData(null, index);
+      //                 });
+      //         });
+      //     });
+      // }
+      // 在 execter 函数中返回一个 resolve结果 ，resolve结果则是等待所有传入的 Promise的 then运行后才返回的
+
+      // function execter(arr, num) {
+      //   if (arr.length > num) {
+      //     arr = arr.splice(0, num);
+      //   }
+      //   return new Promise((resolve, reject) => {
+      //     let result = [];
+      //     let num = 0;
+
+      //     function setData(data, index) {
+      //       result[index] = data;
+      //       num++;
+      //       if (arr.length === num) {
+      //         resolve(result);
+      //       }
+      //     }
+      //     arr.forEach((promise, index) => {
+      //       promise
+      //         .then((data) => {
+      //           setData(data, index);
+      //         })
+      //         .catch((data) => {
+      //           setData(data, index);
+      //         });
+      //     });
+      //   });
+      // }
+
+      // function execter(arr) {
+      //   return new Promise((resolve, reject) => {
+      //     let result = [];
+      //     let num = 0;
+      //     function setData(data, index) {
+      //       result[index] = data
+      //       num++
+      //       if(arr.length === num){
+      //         resolve(result)
+      //       }
+      //     }
+      //     arr.forEach((promise,index)=>{
+      //       promise.then(data=>{
+      //         setData(data,index)
+      //       }).catch(data=>{
+      //         setData(`reject：${data}`,index)
+      //       })
+      //     })
+      //   });
+      // }
+      function AjaxFetch(wait,id){
+       return function () {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(id);
+          }, wait);
+        })
+       }
+      }
+      function execter(arr=[], max) {
+        const len = arr.length
+        let newArr = []
+        for (let i = 0; i < len; i+=max) {
+          newArr.push(arr.slice(i, i+max))
+        }
+
+        return new Promise((resolve) => {
+          let result = [];
+          let num = 0;
+          function setData(data, index,len) {
+            num++;
+            result[index] = data;
+            if(len === num){
+              num = 0
+              resolve(result)
+            }
+          }
+          for (const promiseArr of newArr) {
+            console.log(promiseArr);
+            let promiseArrLen = promiseArr.length
+            promiseArr = promiseArr.map((fn)=>fn())
+          //   promiseArr.forEach((item, index) => {
+          //   item
+          //     .then((data) => {
+          //       setData(data, index, len)
+          //     })
+          //     .catch((data) => {
+          //       setData(null, index, len)
+          //     });
+          // });
+          }
+          
+        });
+      }
+      let promiseArr = [
+        AjaxFetch(1000,1),
+        AjaxFetch(1000,2),
+        AjaxFetch(1000,3),
+        AjaxFetch(1000,4),
+        AjaxFetch(1000,5),
+        AjaxFetch(3000,6),
+      ];
+      execter(promiseArr, 3).then((res) => {
+        console.log(res); //[1,null,3]
+      });
+    </script>
+  </body>
+</html>

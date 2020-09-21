@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>全面理解vue的渲染watcher、computed和user atcher</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="./vue.js"></script>
+    <script src="./initState.js"></script>
+    <script src="./dep.js"></script>
+    <script src="./watcher.js"></script>
+
+    <button onClick="changeData()">改变name和age</button>
+
+    <script>
+      const root = document.querySelector("#root");
+      var vue = new Vue({
+        data() {
+          return {
+            name: "张三",
+            age: 10,
+          };
+        },
+        render() {
+          root.innerHTML = `${this.name}----${this.age}`;
+        },
+      });
+      function changeData() {
+        vue.name = "李四";
+        vue.age = 20;
+      }
+    </script>
+  </body>
+</html>

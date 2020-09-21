@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // function test(params) {
+      //   new Promise((resolve) => {
+      //     setTimeout(() => {
+      //       red();
+      //       resolve();
+      //     }, 1000);
+      //   })
+      //     .then(() => {
+      //       return new Promise((resolve) => {
+      //         setTimeout(() => {
+      //           green();
+      //           resolve();
+      //         }, 3000);
+      //       });
+      //     })
+      //     .then(() => {
+      //       return new Promise((resolve) => {
+      //         setTimeout(() => {
+      //           yellow();
+      //           resolve();
+      //         }, 1000);
+      //       });
+      //     }).then(()=>{
+      //       test()
+      //     })
+      // }
+      // function red(params) {
+      //   console.log("red");
+      // }
+      // function green(params) {
+      //   console.log("green");
+      // }
+      // function yellow(params) {
+      //   console.log("yellow");
+      // }
+
+      // let num = 0;
+      // const createPromise = (time, light) => {
+      //   return function () {
+      //     return new Promise((solve) =>
+      //       setTimeout(() => {
+      //         console.log("promise", light);
+      //         num++;
+      //         solve();
+      //         if (num === 3) {
+      //           num = 0
+      //           runPromiseByQueue([
+      //             createPromise(1000, "red"),
+      //             createPromise(1000, "green"),
+      //             createPromise(1000, "yellow"),
+      //           ]);
+      //         }
+      //       }, time)
+      //     );
+      //   };
+      // };
+      // function runPromiseByQueue(promiseArr) {
+      //   promiseArr.reduce((pre, next) => {
+      //     return pre.then(() => {
+      //       return next();
+      //     });
+      //   }, Promise.resolve());
+      // }
+      // let num = 0
+      // function runPromiseByQueue(arr) {
+      //   arr.reduce((pre,next)=>{
+      //     return pre.then(()=>{
+      //       return next()
+      //     })
+      //   },Promise.resolve())
+      // }
+      //   function createPromise(wait, light) {
+      //     return function () {
+      //       return new Promise(resolve=>{
+      //         setTimeout(()=>{
+      //           console.log(light);
+      //           resolve()
+      //         },wait)
+      //       })
+      //     }
+      //   }
+
+      function createPromise(wait, light) {
+        return function () {
+          return new Promise(resolve=>{
+            setTimeout(()=>{
+              console.log(light);
+              resolve()
+            },wait)
+          })
+        }
+        
+      }
+function runPromiseByQueue(arr) {
+  arr.reduce((pre,next)=>{
+    return pre.then(()=>{
+      return next()
+    })
+  }, Promise.resolve())
+}
+      
+
+      runPromiseByQueue([
+        createPromise(1000, "red"),
+        createPromise(1000, "green"),
+        createPromise(1000, "yellow"),
+      ]);
+
+      //  async function test(params) {
+      //     for (let index = 0; index < 5; index++) {
+      //      await new Promise((resolve, reject)=>{
+      //         setTimeout(()=>{
+      //           console.log(index);
+      //           resolve(index)
+      //         },1000)
+      //       })
+      //     }
+      //   }
+      //   test()
+      // new Promise((resolve, reject) => {
+      //   setTimeout(() => {
+      //     console.log(1);
+      //     resolve(1);
+      //   }, 1000);
+      // })
+      //   .then((data) => {
+      //     return new Promise((resolve, reject) => {
+      //       setTimeout(() => {
+      //         console.log("data+1");
+      //         resolve(data + 1);
+      //       }, 1000);
+      //     });
+      //   })
+      //   .then((data) => {
+      //   return new Promise((resolve, reject) => {
+      //     setTimeout(() => {
+      //       console.log("data+2");
+      //       resolve(data + 2);
+      //     }, 1000);
+      //   });
+      // });
+    </script>
+  </body>
+</html>
