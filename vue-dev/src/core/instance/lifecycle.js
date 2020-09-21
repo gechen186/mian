@@ -58,10 +58,10 @@ export function initLifecycle (vm: Component) {
 export function lifecycleMixin (Vue: Class<Component>) {
   Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {
     const vm: Component = this
-    const prevEl = vm.$el
-    const prevVnode = vm._vnode
+    const prevEl = vm.$el // 真实的 DOM节点
+    const prevVnode = vm._vnode // 旧的 VNode节点
     const restoreActiveInstance = setActiveInstance(vm)
-    vm._vnode = vnode
+    vm._vnode = vnode // 新的 VNode节点
     // Vue.prototype.__patch__ is injected in entry points
     // based on the rendering backend used.
     if (!prevVnode) {
@@ -187,6 +187,9 @@ export function mountComponent (
     }
   } else {
     updateComponent = () => {
+      // vm._render()会调用 render函数，并返回一个 VNode，会动态计算 getter，同时推入 dep里边进行数据监听
+      // 每次数据更新都会触发当前实例的 _update进行组件更新
+      // _update()方法会将新VNode和 旧VNode进行 diff比较
       vm._update(vm._render(), hydrating)
     }
   }
@@ -194,6 +197,16 @@ export function mountComponent (
   // we set this to vm._watcher inside the watcher's constructor
   // since the watcher's initial patch may call $forceUpdate (e.g. inside child
   // component's mounted hook), which relies on vm._watcher being already defined
+
+  /* 新建一个_watcher对象，将监听目标推入dep，vm实例上挂载的_watcher主要是为了更新 DOM调用当前vm的_watcher 的 update 方法。
+     用来强制更新。为什么叫强制更新呢？
+   * vue里面有判断，如果newValue == oldValue， 那么就不触发watcher更新视图了
+   * vm：当前实例
+   * updateComponent：用来将vnode更新到之前的dom上
+   * noop：无效函数，可以理解为空函数
+   * {before(){...}}：配置，如果该实例已经挂载了，就配置beforeUpdate生命周期钩子函数
+   * true：主要是用来判断是哪个watcher的。因为computed计算属性和如果你要在options里面配置watch了同样也是使用了 new Watcher ，加上这个用以区别这三者
+   */
   new Watcher(vm, updateComponent, noop, {
     before () {
       if (vm._isMounted && !vm._isDestroyed) {

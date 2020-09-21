@@ -36,7 +36,7 @@ Vue.prototype.__patch__ = inBrowser ? patch : noop
 // public mount method
 Vue.prototype.$mount = function (
   el?: string | Element,
-  hydrating?: boolean
+  hydrating?: boolean // hydrating这个传参可以全局性的理解为，服务端渲染，默认false。
 ): Component {
   el = el && inBrowser ? query(el) : undefined
   return mountComponent(this, el, hydrating)

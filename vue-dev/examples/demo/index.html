@@ -11,40 +11,86 @@
 <body>
 
   <div id="app">
-    <div>{{obj.test}}</div>
+    <keep-alive>
+      <runoob></runoob>
+    </keep-alive>
+    <keep-alive>
+      <runoob2></runoob2>
+    
+    </keep-alive>
+
+    <!-- <div>{{obj.test}}</div>
+    <a href="#/home">home</a>
+    <a href="#/about">about</a> -->
   </div>
   <script src="../../dist/vue.js"></script>
   <script>
-    new Vue({
-      el: "#app",
-      // render(createElement){
-      //   return createElement('div', {
-      //     attrs: {
-      //       id: 'app2'
-      //     }
-      //   }, this.message2)
-      // },
-      mounted() {
-        // this.$nextTick(1)
-      },
-      template:'<div style="color:red">{{def }}</div>',
-      data: {
-          obj:{test:1}
-        },
-        created() {
-          this.abc = 'abc'
 
-          setTimeout(()=>{
-            this.abc = 'def'
-            console.log(this.abc);
-          },1000)
-        },
-        computed: {
-          def(){
-            return this.abc
-          }
-        },
-    });
+
+var Child = {
+  template: '<h1>自定义组件!</h1>'
+}
+var Child2 = {
+  template: '<h1>自定义组件2!</h1>'
+}
+ 
+// 创建根实例
+new Vue({
+  el: '#app',
+  components: {
+    // <runoob> 将只在父模板可用
+    'runoob': Child,
+    'runoob2': Child2,
+  }
+})
+//     Vue.component('MC', {
+//       template:'<div style="color:blue">{{abc}}----------{{def}}{{abcd}}</div>'
+//   // ... 选项 ...
+// })
+//     new Vue({
+//       el: "#app",
+//       // render(createElement){
+//       //   return createElement('div', {
+//       //     attrs: {
+//       //       id: 'app2'
+//       //     }
+//       //   }, this.message2)
+//       // },
+//       mounted() {
+//         // this.$nextTick(1)
+//       },
+//       template:'<keep-alive><MC/></keep-alive>',
+//       data: {
+//           // obj:{test:1},
+//           abc:1,
+//           abcd:1,
+//           def:2,
+//         },
+//         component:{
+//           MC:MC
+//         },
+//         created() {
+//           this.$nextTick(()=>{
+//             this.abc = 'abc'
+//           })
+//           this.$nextTick(()=>{
+//             this.abcd = '111'
+//           })
+//           this.$nextTick(()=>{
+//             this.abc = '222'
+//           })
+//         },
+//         mounted(){
+//           this.$nextTick(()=>{
+//             this.def = 'def'
+//           })
+//         },
+//         methods: {
+//           // jump(){
+//           //   this.
+//           // }
+//         },
+//     });
     
   </script>
 </html>

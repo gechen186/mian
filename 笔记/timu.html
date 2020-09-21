@@ -10,12 +10,9 @@
       for (var i = 0; i < 4; i++) {
         var timers = setInterval(
           (i, timer) => {
-            console.log(i, timer, timers);
+            console.log(i);
             clearInterval(timer);
-          },
-          1000,
-          i,
-          timers
+          }, 1000, i, timers
         );
       }
       module.exports = {

@@ -21,7 +21,7 @@ const idToTemplate = cached(id => {
 //   }: any)
 // }
 
-
+// 最终返回的 mount是在 ./runtime/index 定义的
 const mount = Vue.prototype.$mount
 Vue.prototype.$mount = function (
   el?: string | Element,
@@ -39,8 +39,10 @@ Vue.prototype.$mount = function (
 
   const options = this.$options
   // resolve template/el and convert to render function
+  // 如果没有手写 render函数
   if (!options.render) {
     let template = options.template
+    // 如果定义了 template
     if (template) {
       if (typeof template === 'string') {
         if (template.charAt(0) === '#') {
@@ -61,6 +63,7 @@ Vue.prototype.$mount = function (
         }
         return this
       }
+      // 取出 el节点内的所有 html
     } else if (el) {
       template = getOuterHTML(el)
     }
@@ -70,6 +73,12 @@ Vue.prototype.$mount = function (
         mark('compile')
       }
 
+      /* 
+        compileToFunctions 主要是将 getOuterHTML获取的模板编译为 render函数，分为 3步
+        1. parse：将 html 模板解析成抽象语法树（AST）
+        2. optimizer： 对 AST做优化处理
+        3. generateCode：根据 AST生成 render函数
+      */
       const { render, staticRenderFns } = compileToFunctions(template, {
         outputSourceRange: process.env.NODE_ENV !== 'production',
         shouldDecodeNewlines,
@@ -77,7 +86,7 @@ Vue.prototype.$mount = function (
         delimiters: options.delimiters,
         comments: options.comments
       }, this)
-      options.render = render
+      options.render = render   // 解析后最终生成的 render函数
       options.staticRenderFns = staticRenderFns
 
       /* istanbul ignore if */

@@ -41,12 +41,22 @@
         6. 轮询查找 Callback Queue，如有则移动到 Call Stack执行
         7. 然后继续查找 （永动机一样）
     */
-      console.log("Hi");
-      setTimeout(function cb1() {
-        console.log("cb1");
-      }, 5000);
-      console.log("Bye");
+      // console.log("Hi");
+      // setTimeout(function cb1() {
+      //   console.log("cb1");
+      // }, 5000);
+      // console.log("Bye");
 
+      console.log(1);
+      setTimeout(()=>{
+        Promise.resolve().then(()=>{
+        console.log(4);
+      })
+        console.log(2);
+      },0)
+      Promise.resolve().then(()=>{
+        console.log(3);
+      })
       /* 
         DOM事件与 Event Loop
         DOM事件与 setTimeout和 Ajax的区别是触发时机，准确说是 DOM事件内的回调函数的触发时机
@@ -58,11 +68,11 @@
         等待同步代码执行完毕后的 Event Loop来查找
 
       */
-      console.log("Hi");
-      $("btn").click(function cb1() {
-        console.log("cb1 click");
-      });
-      console.log("Bye");
+      // console.log("Hi");
+      // $("btn").click(function cb1() {
+      //   console.log("cb1 click");
+      // });
+      // console.log("Bye");
     </script>
   </body>
 </html>

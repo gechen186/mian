@@ -84,6 +84,8 @@ export default {
     const slot = this.$slots.default
     const vnode: VNode = getFirstComponentChild(slot)
     const componentOptions: ?VNodeComponentOptions = vnode && vnode.componentOptions
+    console.log( slot, 'this.key');
+
     if (componentOptions) {
       // check pattern
       const name: ?string = getComponentName(componentOptions)
@@ -96,13 +98,14 @@ export default {
       ) {
         return vnode
       }
-
       const { cache, keys } = this
       const key: ?string = vnode.key == null
         // same constructor may get registered as different local components
         // so cid alone is not enough (#3269)
         ? componentOptions.Ctor.cid + (componentOptions.tag ? `::${componentOptions.tag}` : '')
         : vnode.key
+      console.log( componentOptions, 'key');
+        
       if (cache[key]) {
         vnode.componentInstance = cache[key].componentInstance
         // make current key freshest
