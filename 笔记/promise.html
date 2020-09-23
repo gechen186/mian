@@ -1,17 +1,13 @@
 <!DOCTYPE html>
-<html lang='en'>
-<head>
-<meta charset='UTF-8'>
-<title>Title</title>
-<style type='text/css'>
-
-</style>
-</head>
-<body>
-
-<script type='text/javascript'>
-
-/* 
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      /* 
     then/catch 都是正常返回 resolved，里边有报错则返回 rejected
     then/catch 是根据 resolved/rejected来进行触发，resolved触发 then，rejected触发 catch
     如果then中有报错 会返回 rejected
@@ -19,27 +15,26 @@
     
  */
 
-// const p1 = Promise.resolve().then(()=>{
-//   return 100
-// })
-// p1.then(()=>{
-//   console.log(100);
-// })
+      // const p1 = Promise.resolve().then(()=>{
+      //   return 100
+      // })
+      // p1.then(()=>{
+      //   console.log(100);
+      // })
 
-// const p2 = Promise.resolve().then(()=>{
-//   throw new Error('err100')
-// })
-// p2.then(()=>{
-//   console.log(456);
-// }).catch((err)=>{
-//   console.log(err, 'err');
-// })
-// const p3 = Promise.reject('my error').catch((err)=>{
-//   console.log(err);  //此时返回 resolved，如果报错了 则返回reject
-// })
+      // const p2 = Promise.resolve().then(()=>{
+      //   throw new Error('err100')
+      // })
+      // p2.then(()=>{
+      //   console.log(456);
+      // }).catch((err)=>{
+      //   console.log(err, 'err');
+      // })
+      // const p3 = Promise.reject('my error').catch((err)=>{
+      //   console.log(err);  //此时返回 resolved，如果报错了 则返回reject
+      // })
 
-
-function foo(i) {
+      function foo(i) {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve(i);
@@ -49,11 +44,11 @@ function foo(i) {
 
       (async function () {
         // 异步遍历
-        
+
         for (var i = 0; i < 3; i++) {
-          var i
+          var i;
           const res = foo(i);
-          console.log('ok', i);
+          console.log("ok", i);
         }
       })();
       // async function async1() {
@@ -84,45 +79,45 @@ function foo(i) {
       // });
       // console.log("script end"); // 5   这步结束后 同步代码全部完毕 开始执行微任务
 
-//   ---------- 题目 ----------
-// 第一题
-Promise.resolve()
-  .then(() => {
-    console.log(1);
-  })
-  .catch(() => {
-    console.log(2);
-  })
-  .then(() => {
-    console.log(3);
-  });
+      //   ---------- 题目 ----------
+      // 第一题
+      Promise.resolve()
+        .then(() => {
+          console.log(1);
+        })
+        .catch(() => {
+          console.log(2);
+        })
+        .then(() => {
+          console.log(3);
+        });
 
-// 第二题
-Promise.resolve()
-  .then(() => {
-    console.log(1);
-    throw new Error("erro1");
-  })
-  .catch(() => {
-    console.log(2);
-  })
-  .then(() => {
-    console.log(3);
-  }); 
+      // 第二题
+      Promise.resolve()
+        .then(() => {
+          console.log(1);
+          throw new Error("erro1");
+        })
+        .catch(() => {
+          console.log(2);
+        })
+        .then(() => {
+          console.log(3);
+        });
 
-// 第三题
-Promise.resolve()
-  .then(() => {
-    console.log(1);
-    throw new Error("erro1");
-  })
-  .catch(() => {
-    console.log(2);
-  })
-  .catch(() => {
-    // 注意这里是 catch
-    console.log(3);
-  });
-</script>
-</body>
+      // 第三题
+      Promise.resolve()
+        .then(() => {
+          console.log(1);
+          throw new Error("erro1");
+        })
+        .catch(() => {
+          console.log(2);
+        })
+        .catch(() => {
+          // 注意这里是 catch
+          console.log(3);
+        });
+    </script>
+  </body>
 </html>
