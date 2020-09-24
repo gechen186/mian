@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css">
+      .out {
+        width: 200px;
+        height: 200px;
+        background-color: blue;
+      }
+      .inner {
+        width: 60px;
+        height: 60px;
+        padding-top: 20%;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="out">
+      <div class="inner"></div>
+    </div>
+
+    <script type="text/javascript">
+    const arr = [1,2,[3,[4,[[[[[[5]]]]]]]]]
+      function follat(arr) {
+        return arr.reduce((pre, next) => {
+          return pre.concat(Array.isArray(next) ? follat(next) : next);
+        }, []);
+      }
+
+      console.log(follat(arr));
+      // function a() {
+      //   function a() {
+      //    a = 4;
+      //   }
+      //   a();
+      //   console.log(a);
+      // }
+      // a();
+      // console.log(a);
+      // const obj = {
+      //   a:1,
+      //   b:{
+      //     c:2,
+      //     d:[{
+      //       cc:1
+      //     }]
+      //   }
+      // }
+      //   function deepClone(obj) {
+      //     if (typeof obj !== "object" || obj === null) {
+      //       return obj;
+      //     }
+      //     const result = Array.isArray(obj) ? [] : {};
+      //     for (const key in obj) {
+      //       if (obj.hasOwnProperty(key)) {
+      //         result[key] = deepClone(obj[key]);
+      //       }
+      //     }
+      //     return result
+      //   }
+      //   const obj2 = deepClone(obj)
+      //   console.log(obj, obj2, obj === obj2);
+    </script>
+  </body>
+</html>
