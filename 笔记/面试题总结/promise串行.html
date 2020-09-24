@@ -89,39 +89,53 @@
       //     }
       //   }
 
-      function createPromise(wait, light) {
-        return function () {
-          return new Promise(resolve=>{
-            setTimeout(()=>{
-              console.log(light);
-              resolve()
-            },wait)
-          })
-        }
-        
-      }
-function runPromiseByQueue(arr) {
-  arr.reduce((pre,next)=>{
-    return pre.then(()=>{
-      return next()
-    })
-  }, Promise.resolve())
-}
-      
+      // function createPromise(wait, light, flag = true) {
+      //   return function () {
+      //     return new Promise((resolve, reject) => {
+      //       setTimeout(() => {
+      //         if (!flag) {
+      //           reject(123);
+      //         }
+      //         console.log(light);
+      //         resolve(light);
+      //       }, wait);
+      //     });
+      //   };
+      // }
 
-      runPromiseByQueue([
-        createPromise(1000, "red"),
-        createPromise(1000, "green"),
-        createPromise(1000, "yellow"),
-      ]);
+
+      // function runPromiseByQueue(arr) {
+      //   arr.reduce((pre, next) => {
+      //     return pre
+      //       .then((res) => {
+      //         return next();
+      //       })
+      //       .catch((err) => {
+      //         return next();
+      //       });
+      //   }, Promise.resolve());
+      // }
+
+      // runPromiseByQueue([
+      //   createPromise(1000, "red"),
+      //   createPromise(1000, "green"),
+      //   createPromise(1000, "ccccc",false),
+      //   createPromise(1000, "yellow"),
+      // ]);
 
       //  async function test(params) {
       //     for (let index = 0; index < 5; index++) {
       //      await new Promise((resolve, reject)=>{
       //         setTimeout(()=>{
+      //           if(index === 2){
+      //             reject('error')
+      //           }else{
+      //             resolve(index)
+      //           }
       //           console.log(index);
-      //           resolve(index)
       //         },1000)
+      //       }).catch((err)=>{
+      //         console.log(err);
       //       })
       //     }
       //   }

@@ -24,15 +24,32 @@
     <div class="box" style="background-color: rgba(111,111,111,1)"></div>
 
     <script type="text/javascript">
-    // const arr = [1,2,3,4,5]
-    // let result = []
-    // const len = arr.length
-    // for (let i = 1; i < 6; i++) {
-    //   for (let j = 2; j < 6; j++) {
-    //     result.push(i+''+j)
+
+    // function foo(n,o) {
+    //   console.log(o)
+    //   return {
+    //     fun: function (m) {
+    //       return foo(m,n)
+    //     }
     //   }
     // }
-    // console.log(result);
+
+    // var a = foo(0);
+    // a.fun(1)
+    // a.fun(2)
+    // a.fun(3)
+
+    // var b = foo(0).fun(1).fun(2).fun(3)
+
+    
+    let result = []
+    const len = arr.length
+    for (let i = 1; i < 6; i++) {
+      for (let j = 1+i; j < 6; j++) {
+        result.push(i+''+j)
+      }
+    }
+    console.log(result);
       // const box = document.querySelectorAll(".box");
       // let reuslt = [];
       // box.forEach((item) => {
