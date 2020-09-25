@@ -1,0 +1,1 @@
+consele.log('hello, axin !') // console故意写错
