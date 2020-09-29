@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+.box{
+  width: 900px;
+  height: 900px;
+  border: 1px solid;
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-basis: 100%; */
+}
+.inner{
+  flex-basis: 100%;
+  display: flex;
+}
+.inner-1{
+  justify-content: space-between;
+}
+.inner-2{
+  justify-content: center;
+}
+.inner-3{
+  justify-content: space-between;
+}
+.item{
+  width: 200px;
+  height: 200px;
+}
+.item-1{
+  background-color: red;
+}
+.item-2{
+  background-color: yellow;
+}
+.item-3{
+  background-color: green;
+}
+.item-4{
+  background-color: blue;
+}
+.item-5{
+  background-color: gray;
+}
+.item-6{
+  background-color: navajowhite;
+}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="inner inner-1">
+    <div class="item item-1"></div>
+    <div class="item item-2"></div>
+    <div class="item item-3"></div>
+  </div>
+  <div class="inner inner-2">
+    <div class="item item-4"></div>
+  </div>
+  <div class="inner inner-3">
+    <div class="item item-5"></div>
+    <div class="item item-6"></div>
+  </div>
+
+</div>
+<script type='text/javascript'>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // 观察者模式
+      // function SubJect() {
+      //   this.observers = [];
+      // }
+      // SubJect.prototype = {
+      //   add: function (observer) {
+      //     this.observers.push(observer);
+      //   },
+      //   remove: function (observer) {
+      //     const observers = this.observers;
+      //     observers.forEach((item, index) => {
+      //       if (item === observer) {
+      //         this.observers.splice(index, 1);
+      //       }
+      //     });
+      //   },
+      //   notfiy: function () {
+      //     const observers = this.observers;
+      //     observers.forEach((item, index) => {
+      //       item.update();
+      //     });
+      //   },
+      // };
+      // function Observer(name) {
+      //   this.name = name;
+      // }
+      // Observer.prototype = {
+      //   update() {
+      //     console.log(`我是${this.name}`);
+      //   },
+      // };
+      // const sub = new SubJect()
+      // const ob1 = new Observer('jack')
+      // const ob2 = new Observer('mike')
+      // sub.add(ob1)
+      // sub.add(ob2)
+      // sub.remove(ob1)
+      // sub.notfiy()
+
+
+      // 发布订阅
+     const subPush = {
+      list: {},
+      sub(key,fn){
+        if(!this.list[key]){
+          this.list[key] = []
+        }
+        this.list[key].push(fn)
+      },
+      pub(...args){
+        const key = args.shift()
+        const fns = this.list[key]
+        if(!fns || fns.length === 0){
+          return false
+        }
+        fns.forEach(item=>{
+          item.apply(this, args)
+        })
+      },
+      remove(key){
+        delete this.list[key]
+      }
+     }
+
+    </script>
+  </body>
+</html>

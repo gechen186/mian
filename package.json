@@ -6,11 +6,9 @@
   "dependencies": {
     "vue": "^2.6.12"
   },
+  "sideEffects": ["*.css","*.scss"],
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build":"webpack",
-    "dev":"webpack-dev-server",
     "start": "node server.js"
   },
   "repository": {

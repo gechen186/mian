@@ -90,7 +90,7 @@ module.exports = {
     new htmlPlugin({
       template: "./index.html",
     }),
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin(['dist']),
     new webpack.HotModuleReplacementPlugin(), //热更新
   ],
   optimization: {
@@ -100,9 +100,9 @@ module.exports = {
     // webpack-dev-server
     contentBase: path.join(__dirname, "dist"),
     host: "127.0.0.1",
-    compress: true,
+    // compress: true,
     port: 9000,
     hot: true,
-    // hotOnly: true, //只在HMR成功时更新，HMR失效的时候不作任何处理
+    hotOnly: true, //只在HMR成功时更新，HMR失效的时候不作任何处理
   },
 };

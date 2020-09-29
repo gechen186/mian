@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css">
+      body,
+      html {
+        width: 100%;
+        height: 100%;
+      }
+      #outer {
+        width: 100%;
+        height: 100%;
+      }
+      #mask {
+        width: 100%;
+        height: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      #box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        width: 300px;
+        height: 300px;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="outer">
+      <div id="mask">
+        <div id="box"></div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      const box = document.getElementById("box");
+      const mask = document.getElementById("mask");
+
+      document.body.addEventListener("click", () => {
+        console.log(1);
+      });
+      mask.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+      box.addEventListener("click", (evnet) => {
+        // event.stopPropagation()
+      });
+
+      function swiperTouchstart(event) {
+        var touch = event.targetTouches[0]; //touches数组对象获得屏幕上所有的touch，取第一个touch
+        this.startPos = {
+          x: touch.pageX,
+          y: touch.pageY,
+        };
+
+        this.isScrolling = 0; //判断垂直滚动还是水平滚动
+      }
+      function swiperTouchmove(event) {
+        if (
+          event.targetTouches.length > 1 ||
+          (event.scale && event.scale !== 1)
+        )
+          return;
+
+        var touch = event.targetTouches[0];
+        this.endPos = {
+          x: touch.pageX - this.startPos.x,
+          y: touch.pageY - this.startPos.y,
+        };
+
+        this.isScrolling =
+          Math.abs(this.endPos.x) < Math.abs(this.endPos.y) ? 1 : 0;
+        //isScrolling为1时，表示纵向滑动，0为横向滑动
+
+        if (this.isScrolling === 0) {
+          event.preventDefault();
+          //阻止触摸事件的默认行为，即阻止滚屏
+        }
+      }
+    </script>
+  </body>
+</html>
