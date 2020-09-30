@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css">
+      .zan {
+        animation: mymove .9s ;
+        -webkit-animation: mymove .9s ; /*Safari and Chrome*/
+      }
+      .zan1{
+        opacity: 0;
+        position: absolute;
+      }
+      @keyframes mymove {
+        0% {
+          top: 0px;
+          opacity: 0;
+        }
+        60% {
+          top: 50px;
+          opacity: 1;
+        }
+        100% {
+          top: 50px;
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <span id="zanId" class="zan1">+1</span>
+    <button id="btn">点赞</button>
+    <script type="text/javascript">
+      const btn = document.getElementById("btn");
+      const zanId = document.getElementById("zanId");
+      let num = 1;
+      btn.addEventListener("click", () => {
+        zanId.classList += ' zan'
+        // let spanDom = document.createElement("span");
+        // num++;
+        // spanDom.innerHTML = num;
+        // spanDom.classList += "zan";
+        // document.body.appendChild(spanDom);
+        setTimeout(() => {
+          const zan = document.querySelectorAll(".zan");
+          console.log(zan);
+          document.body.removeChild(zan[0]);
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>

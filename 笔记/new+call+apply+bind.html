@@ -134,6 +134,17 @@
       const testNew = creatNew(Test, "小明", 26);
       console.log(testNew.age);
       testNew.sayName();
+
+      Function.prototype.bind3 = function (...args) {
+        const context = args.shift()
+        const fn = this
+        return function newFn(...innerArgs) {
+          if(this instanceof newFn){
+            return new fn(...args, ...innerArgs)
+          }
+          return fn.apply(context, [...args, ...innerArgs])
+        }
+      }
     </script>
   </body>
 </html>

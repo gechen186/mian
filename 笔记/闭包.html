@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+     let counter = function () {
+        let num = 0;
+        function doCounter() {
+          if (num < 5) {
+            setTimeout(() => {
+              num++
+              console.log(`${num}秒`);
+              doCounter()
+            }, 1000);
+            return  
+          }
+          // counter = null
+        }
+        return doCounter;
+      }
+      const fn = counter();
+      fn()
+      
+    </script>
+  </body>
+</html>

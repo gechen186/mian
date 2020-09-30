@@ -38,7 +38,7 @@
       //   return pre
       // },{})
       // console.log(res);
-          
+
       function debounce(fn, wait, immediate) {
         // 定时器返回值
         let timeout = null;
@@ -61,7 +61,6 @@
             timeout = setTimeout(() => {
               timeout = null;
             }, wait);
-            console.log();
             if (callNow) {
               result = fn.apply(context, args);
             }
