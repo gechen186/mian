@@ -12,24 +12,34 @@
 <script type='text/javascript'>
 const arr = [1,[2,3,[4,[5,[[[6]]]]]]]
 function flloat(arr) {
-  let result = []
-  arr.forEach((item)=>{
-    if(Array.isArray(item)){
-      console.log(item);
-      result = result.concat(flloat(item))
-    }else{
-      result.push(item)
-    }
-  })
-  return result;
+ const result = arr.reduce((pre, next)=>{
+    return pre.concat(Array.isArray(next)? flloat(next):next)
+  }, [])
+  return result
 }
 
 
-function flloat(arr) {
-  return arr.reduce((pre,next)=>{
-    return pre.concat(Array.isArray(next) ? flloat(next) : next )
-  },[])
-}
+
+
+// function flloat(arr) {
+//   let result = []
+//   arr.forEach((item)=>{
+//     if(Array.isArray(item)){
+//       console.log(item);
+//       result = result.concat(flloat(item))
+//     }else{
+//       result.push(item)
+//     }
+//   })
+//   return result;
+// }
+
+
+// function flloat(arr) {
+//   return arr.reduce((pre,next)=>{
+//     return pre.concat(Array.isArray(next) ? flloat(next) : next )
+//   },[])
+// }
 console.log(flloat(arr));
 </script>
 </body>

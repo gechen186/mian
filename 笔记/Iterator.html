@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // for of可以遍历 数组，Map，Set但是不能直接遍历对象
+      // 需要手动添加 Symbol.iterator 迭代器才可以
+      const obj = {
+        a: 1,
+        b: 2,
+        c: 3,
+      };
+      obj[Symbol.iterator] = function () {
+        let index = 0;
+        const _this = this;
+        const keys = Object.keys(_this);
+        const len = keys.length;
+        return {
+          next() {
+            if (index < len) {
+              return {
+                value: _this[keys[index++]],
+                done: false,
+              };
+            }
+            return {
+              value: null,
+              done: true,
+            };
+          },
+        };
+      };
+      for (const key of obj) {
+        // if (obj.hasOwnProperty(key)) {
+          console.log(key);
+        // }
+      }
+    </script>
+  </body>
+</html>

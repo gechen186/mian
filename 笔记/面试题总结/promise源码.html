@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      //简易promise实现(resolve,reject)
+      function promise(fn) {
+        this.value = undefined; // 成功状态值
+        this.err = undefined; // 失败状态值
+        this.status = "pending"; // 开始状态（就绪）
+        var t = this;
+        // 就绪 -> 成功
+        function resolve(val) {
+          if (t.status === "pending") {
+            t.value = val;
+            t.status = "success";
+          }
+        }
+        // 就绪 -> 失败
+        function reject(err) {
+          if (t.status === "pending") {
+            t.err = err;
+            t.status = "fail";
+          }
+        }
+        fn(resolve, reject);
+      }
+      promise.prototype.then = function (isSuccess, isFail) {
+        var t = this;
+        // 实现promise的链式调用
+        return new promise(function (resolve, reject) {
+          // 用setTimeout模拟实现then方法的异步操作
+          setTimeout(function () {
+            if (t.status === "success") {
+              // 将then1回调函数返回的值传给then2回调函数，以此类推
+              resolve(isSuccess(t.value));
+            }
+            if (t.status === "fail") {
+              reject(isFail(t.err));
+            }
+          });
+        });
+      };
+
+      // test
+      var p = new promise(function (resolve, reject) {
+        if (1) {
+          resolve("test resolve success");
+        } else {
+          reject("test rejecr fail");
+        }
+      });
+      p.then(function (val) {
+        console.log(val);
+        return val + "链式调用return";
+      }).then(function (val) {
+        console.log(val);
+        return val + "链式调用return3"
+      }).then(function (val) {
+        console.log(val);
+        return val + "链式调用return3"
+      })
+
+      // test resolve success
+      // test resolve success链式调用return
+    </script>
+  </body>
+</html>

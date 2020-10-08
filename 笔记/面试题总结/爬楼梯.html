@@ -7,42 +7,8 @@
   </head>
   <body>
     <script type="text/javascript">
-      // function sum(...args) {
-      //   return args.reduce((pre, next) => {
-      //     return pre + next;
-      //   });
-      // }
-      // function cl(fn) {
-      //   let args = [];
-      //   return function _c(...newArgs) {
-      //     if (newArgs.length) {
-      //       args = [...args, ...newArgs];
-      //       return _c;
-      //     } else {
-      //       return fn.apply(this, args);
-      //     }
-      //   };
-      // }
-      // const add = cl(sum);
 
-      function argsSum(args) {
-        return args.reduce((pre, cur) => {
-          return pre + cur;
-        });
-      }
-      function add(...args1) {
-        let sum1 = argsSum(args1);
-        let fn = function (...args2) {
-          let sum2 = argsSum(args2);
-          return add(sum1 + sum2);
-        };
-        fn.toString = function () {
-          return sum1;
-        };
-        return fn;
-      }
-      console.log(add(1,2)(3));
-      // add(1)(2)(3)
+      
 
       // const climbStairs = (n) => {
       //   let prev = 1;

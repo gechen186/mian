@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      let a = [];
+      let b = "0";
+      console.log(a == 0); // true
+      /* 
+        因为a = [] =>  [] == 0，因为数组是引用数据类型
+        所以会先调用 valueOf方法，再调用toString()
+        [].valueOf() => [], [].toString() => ''
+        所以是 '' == 0，不同基本数据类型比较会将值转换为 Number类型
+        Number('') => 0， 所以 0 == 0
+       */
+
+      console.log(a == !a); // true
+      /* 
+        [] == ![], !的优先级高于 ==， 所以 [] == false，
+        因为 false是基本数据类型，所以 []仍会 [].valueOf.toString() => ''
+        '' == false, 然后不同基本数据类型比较 会转化为 Number类型在比较
+        Number('') == Number(false), 所以最终是 0 == 0
+       */ 
+
+      console.log(b == 0); // true
+      /* 
+        '0' == 0
+        值类型会先转换为 Number
+        Number('0') == 0
+        0 == 0
+       */
+
+      console.log(a == b); // false
+      /* 
+        [] == '0'
+        1. [].valueOf().toString() => ''
+        '' == '0'
+        因为是相同基本数据类型，所以会直接比较，所以为 false
+       */
+
+    </script>
+  </body>
+</html>

@@ -78,16 +78,34 @@
       //     })
       //   },Promise.resolve())
       // }
-      //   function createPromise(wait, light) {
-      //     return function () {
-      //       return new Promise(resolve=>{
-      //         setTimeout(()=>{
-      //           console.log(light);
-      //           resolve()
-      //         },wait)
-      //       })
-      //     }
-      //   }
+
+      function fn(promiseArr) {
+        if (promiseArr.length === 0) {
+          return false;
+        }
+        promiseArr.reduce((pre, next) => {
+          return pre.then(() => {
+            return next();
+          });
+        }, Promise.resolve());
+      }
+      
+      fn([
+        createPromise(1000, "red"),
+        createPromise(1000, "yellow"),
+        createPromise(1000, "blue"),
+      ]);
+
+      function createPromise(wait, light) {
+        return function () {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              console.log(light);
+              resolve();
+            }, wait);
+          });
+        };
+      }
 
       // function createPromise(wait, light, flag = true) {
       //   return function () {
@@ -102,7 +120,6 @@
       //     });
       //   };
       // }
-
 
       // function runPromiseByQueue(arr) {
       //   arr.reduce((pre, next) => {

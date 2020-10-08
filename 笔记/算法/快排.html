@@ -7,18 +7,50 @@
   </head>
   <body>
     <script type="text/javascript">
-      const arr = [5, 8, 9, 22, 11, 1, 66, 12, 33, 2];
-      function test(arr, left, right) {
-        let point = arr.length;
-        if (!left || !right) {
-          left = 0
-          right = 
-          point = Math.floor(arr.length / 2)
-        }
+      const arr = [12,5, 8, 9, 22, 11, 1, 66,11, 12, 33, 2];
 
+      function quickSort(arr) {
+        if(arr.length <= 1){
+          return arr
+        }
+        const left = []
+        const right = []
+        const prioveIndex = Math.floor(arr.length/2)
+        const priove = arr.splice(prioveIndex, 1)[0]
+        
+        arr.forEach(item=>{
+          if(item < priove){
+            left.push(item)
+          }else{
+            right.push(item)
+          }
+        })
+
+        return quickSort(left).concat([priove], quickSort(right))
       }
 
-      // console.log(quickSort);
+
+      // function quickSort(arr) {
+      //   if(arr.length <= 1){
+      //     return arr
+      //   }
+      //   const pivotIndex = Math.floor(arr.length/2)
+      //   const pivot = arr.splice(pivotIndex, 1)[0]
+      //   const left = []
+      //   const right = []
+
+      //   arr.forEach(num=>{
+      //     if(num<pivot){
+      //       left.push(num)
+      //     }else{
+      //       right.push(num)
+      //     }
+      //   })
+
+      //   return quickSort(left).concat([pivot], quickSort(right))
+      // }
+
+      console.log(quickSort(arr));
     </script>
   </body>
 </html>

@@ -23,14 +23,20 @@
     </div>
 
     <script type="text/javascript">
-    const arr = [1,2,[3,[4,[[[[[[5]]]]]]]]]
-      function follat(arr) {
-        return arr.reduce((pre, next) => {
-          return pre.concat(Array.isArray(next) ? follat(next) : next);
-        }, []);
-      }
+    var x = 1
+    if(function f(params) {}){
+      console.log(f);
+      x += typeof f
+    }
+    console.log(x);
+      // const arr = [1, 2, [3, [4, [[[[[[5]]]]]]]]];
+      // function follat(arr) {
+      //   return arr.reduce((pre, next) => {
+      //     return pre.concat(Array.isArray(next) ? follat(next) : next);
+      //   }, []);
+      // }
 
-      console.log(follat(arr));
+      // console.log(follat(arr));
       // function a() {
       //   function a() {
       //    a = 4;

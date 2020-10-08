@@ -67,6 +67,26 @@
       // 注意调用方式的变化
       // console.log(addCurry(1)(2)(3)(4, 5)());
       // console.log(addCurry(1, 2, 3, 4, 5)());
+
+
+      // function argsSum(args) {
+      //   return args.reduce((pre, cur) => {
+      //     return pre + cur;
+      //   });
+      // }
+      // function add(...args1) {
+      //   let sum1 = argsSum(args1);
+      //   let fn = function (...args2) {
+      //     let sum2 = argsSum(args2);
+      //     return add(sum1 + sum2);
+      //   };
+      //   fn.toString = function () {
+      //     return sum1;
+      //   };
+      //   return fn;
+      // }
+      // console.log(add(1,2)(3));
+      // add(1)(2)(3)
     </script>
   </body>
 </html>

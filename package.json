@@ -6,8 +6,13 @@
   "dependencies": {
     "vue": "^2.6.12"
   },
-  "sideEffects": ["*.css","*.scss"],
-  "devDependencies": {},
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
+  "devDependencies": {
+    "express": "^4.17.1"
+  },
   "scripts": {
     "start": "node server.js"
   },

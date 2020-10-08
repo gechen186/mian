@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+<div>我是div</div>
+<span>我是span</span>
+<ul>
+  <li>我是li</li>
+</ul>
+<script type='text/javascript'>
+const body = document.getElementsByTagName('body')
+body[0].onclick = function (event) {
+  const target = event.target || event.srcElement
+  alert(target.nodeName)
+}
+</script>
+</body>
+</html>

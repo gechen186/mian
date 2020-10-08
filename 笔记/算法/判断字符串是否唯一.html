@@ -15,9 +15,7 @@ var isUnique = function(astr) {
     const len = astr.length
     for(let i=0; i<len; i++){
         for(let j=i+1;j<len;j++){
-          console.log(astr[i],astr[j]);
             if(astr[i] === astr[j]){
-              
                 return false;
             }
         }

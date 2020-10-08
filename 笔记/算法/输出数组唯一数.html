@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+  const arr = [1,3,1,3,2]
+  // function fn(arr) {
+  //   const obj = {}
+  //   arr.forEach(item=>{
+  //     if(!obj[item]){
+  //       obj[item] = 1
+  //     }else{
+  //       obj[item]++
+  //     }
+  //   })
+
+  //   for (const key in obj) {
+  //     if(obj[key] === 1){
+  //       return key
+  //     }
+  //   }
+  // }
+  function fn(arr) {
+    return arr.filter(item=>{
+      return arr.indexOf(item) === arr.lastIndexOf(item)
+    })
+  }
+
+  console.log(fn(arr));
+</script>
+</body>
+</html>

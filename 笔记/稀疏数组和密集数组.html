@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+
+const arrLike = {
+  length:4,
+  0:0,
+  1:1,
+  2:2,
+  '-1':3,
+  4:4
+}
+console.log(Array.from(arrLike))  // [0, 1, undefind, 3]  密集数组
+console.log(Array.prototype.slice.call(arrLike)) // [0, 1, empty, 3]  稀疏数组
+
+
+// 集合 https://www.cnblogs.com/jaxu/p/11287315.html
+// 字典 https://www.cnblogs.com/jaxu/p/11302315.html
+</script>
+</body>
+</html>

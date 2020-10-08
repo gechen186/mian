@@ -109,18 +109,17 @@
             }
           }
           for (const promiseArr of newArr) {
-            console.log(promiseArr);
             let promiseArrLen = promiseArr.length
             promiseArr = promiseArr.map((fn)=>fn())
-          //   promiseArr.forEach((item, index) => {
-          //   item
-          //     .then((data) => {
-          //       setData(data, index, len)
-          //     })
-          //     .catch((data) => {
-          //       setData(null, index, len)
-          //     });
-          // });
+            promiseArr.forEach((item, index) => {
+            item
+              .then((data) => {
+                setData(data, index, len)
+              })
+              .catch((data) => {
+                setData(null, index, len)
+              });
+          });
           }
           
         });

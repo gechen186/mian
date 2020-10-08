@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      /* 
+  实现一个 cacheRequest方法，保证发出多次同一个 ajax请求都能拿到数据，实际上只发出一次
+ */
+      const request = (url, option) => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({ data: option });
+          },3000);
+        });
+      };
+      const cache = new Map();
+      const cacheRequest = function (url, option) {
+        const key = `${url}:${option.method}`;
+        console.log(cache);
+        if(cache.has(key)){
+          if(cache.get(key).status === 'pending'){
+            return cache.get(key).myWait
+          }
+          return cache.get(key).data
+        }else{
+          const requestApi = request(url, option)
+          cache.set(key,{
+            status: 'pending',
+            myWait: requestApi
+          })
+         return requestApi.then(res=>{
+            cache.set(key, {
+              status: 'success',
+              data: res
+            })
+            return Promise.resolve(res)
+          }).catch(err=>{
+            cache.set(key, {
+              status: 'fail',
+              data: err
+            })
+            // Promise.reject(err)
+          })
+        }
+      };
+
+      cacheRequest('url1', {method:'get'}).then(res=>{
+        console.log(res);
+      })
+      cacheRequest('url1',{method:'get'}).then(res=>{
+        console.log(res);
+      })
+      cacheRequest('url1',{method:'get'}).then(res=>{
+        console.log(res);
+      })
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+  function BinaryTree() {
+    // 节点的构造函数
+    var Node = function (key) {
+      this.key = key
+      this.left = null
+      this.right = null
+    }
+    // 跟节点
+    var root = null
+    // 节点插入的行为
+    this.insert = function (key) {
+      // 创建节点
+      var newNode = new Node(key)
+      // 如果root是空，则第一次插入的节点就是根节点
+      if(root === null){
+        root = newNode
+      }else{
+        insertNode(root, newNode)
+      }
+    }
+
+    function insertNode(node, newNode) {
+      if(newNode.key < node.key){
+        if(node.left === null){
+          node.left = newNode
+        }else{
+          insertNode(node.left, newNode)
+        }
+      }else{
+        if(node.right === null){
+          node.right = newNode
+        }else{
+          insertNode(node.right, newNode)
+        }
+      }
+    }
+
+    // 通过前序遍历 clone二叉树比直接生成二叉树的效率高
+    this.preOrderTraverse = function (callback) {
+      preOrderTraverseNode(root, callback)
+    }
+    var preOrderTraverseNode = function (node, callback) {
+      if(node !== null){
+        callback(node.key)
+        preOrderTraverseNode(node.left, callback)
+        preOrderTraverseNode(node.right, callback)
+      }
+    }
+    
+    // 中序遍历 排序
+    this.inOrderTraverse = function (callback) {
+      inOrderTraverseNode(root, callback)
+    }
+
+    var inOrderTraverseNode = function (node, callback) {
+      /* 
+        判断当前节点是否有左子节点，找到左叶子节点，因为此时已经是最终节点，所以会然后打印并跳出
+        返回左叶子节点的父节点，然后再找到右叶子节点
+       */
+      if(node !== null){
+        inOrderTraverseNode(node.left, callback)
+        callback(node.key)
+        inOrderTraverseNode(node.right, callback)
+      }
+    }
+
+    // 后序遍历
+    this.postOrderTraverse = function (callback) {
+      postOrderTraverseNode(root, callback)
+    }
+
+    var postOrderTraverseNode = function (node, callback) {
+      if(node !== null){
+        postOrderTraverseNode(node.left, callback)
+        postOrderTraverseNode(node.right, callback)
+        callback(node.key)
+      }
+    }
+
+    // 二叉树查找
+    // 1. 二叉树查找最小节点：沿着 root节点 一直查找左子节点，知道查找到左叶子节点则表示此节点为最小
+    // 2. 二叉树查找最大节点：沿着 root节点 一直查找右子节点，知道查找到右叶子节点则表示此节点为最大
+    // 3. 二叉树查找指定节点：首先判断 root节点与指定节点的大小，若小于则查找左子树，若大于则查找右子树
+    //    到达子节点后仍判断当前子节点与指定节点的大小，重复判断知道找到指定节点
+    // 1.
+    this.min = function () {
+      return minNode(root)
+    }
+    var minNode = function (node) {
+      if(node !== null){
+        while (node.left) {
+          node = node.left
+        }
+        return node.key
+      }
+    }
+
+    // 2. 
+    this.max = function () {
+      return maxNode(root)
+    }
+    var maxNode = function (node) {
+      if(node){
+        while (node.right) {
+          node = node.right
+        }
+        return node.key
+      }
+    }
+    // 3. 
+    this.search = function (key) {
+      return searchNode(root, key)
+    }
+    var searchNode = function (node, key) {
+      if(node === null){
+        return false
+      }
+      if(key < node.key){
+        return searchNode(node.left, key)
+      }else if(key > node.key){
+        return searchNode(node.right, key)
+      }else{
+        return true
+      }
+    }
+
+    // 删除子节点
+    // 1. 删除叶子节点
+    // 2. 删除中间节点
+    // 1. 
+    this.remove = function (key) {
+      root = removeNode(root, key)
+    }
+    var removeNode = function (node, key) {
+      if(node === null){
+        return null
+      }
+      if(key < node.key){
+        node.left = removeNode(node.left, key)
+        return node
+      }else if(key > node.key){
+        node.right = removeNode(node.right, key)
+        return node
+      }else {
+        if(node.left === null && node.right === null){
+          node = null
+          return node
+        }
+
+      }
+      
+    }
+  }
+
+  const nodes = [8,3,10,1,6,14,4,7,13]
+  const binaryTree = new BinaryTree()
+  //生成二叉树结构
+  nodes.forEach(key=>{
+    binaryTree.insert(key)
+  })
+
+  var callback = function (key) {
+    console.log(key);
+  }
+  // binaryTree.inOrderTraverse(callback)
+  // binaryTree.preOrderTraverse(callback)
+  // binaryTree.postOrderTraverse(callback)
+  // console.log(binaryTree.min());
+  // console.log(binaryTree.max());
+  console.log(binaryTree.search(1));
+</script>
+</body>
+</html>

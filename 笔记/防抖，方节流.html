@@ -14,7 +14,7 @@
       let timer = null;
       input1.addEventListener(
         "keyup",
-        throttle(
+        debounce(
           (event) => {
             console.log(this, event.target.value);
             // if(timer){
@@ -42,6 +42,7 @@
       function debounce(fn, wait, immediate) {
         // 定时器返回值
         let timeout = null;
+        // let timeout2 = null;
         // fn函数返回值
         let result = null;
 
@@ -53,6 +54,9 @@
           if (timeout) {
             clearTimeout(timeout);
           }
+          // if (timeout2) {
+          //   clearTimeout(timeout2);
+          // }
           // 立即执行的 falg
           let callNow = !timeout;
           // 是否开启立即执行
@@ -64,6 +68,10 @@
             if (callNow) {
               result = fn.apply(context, args);
             }
+            // 立即执行后 wait时间内再次执行
+            // timeout2 = setTimeout(() => {
+            //     fn.apply(context, args);
+            // }, wait);
           } else {
             timeout = setTimeout(() => {
               result = fn.apply(context, args);
@@ -80,21 +88,19 @@
       /* 节流是频繁输入以一个频率连续触发*/
 
 
-      function throttle(fn, wait) {
-        let timeout = null
-        return function (...args) {
-        let context = this
-          if(timeout){
-            return false
-          }
-          timeout = setTimeout(()=>{
-            fn.apply(context, ...args)
-            timeout = null
-          }, wait)
-        }
-
-        
-      }
+      // function throttle(fn, wait) {
+      //   let timeout = null
+      //   return function (...args) {
+      //   let context = this
+      //     if(timeout){
+      //       return false
+      //     }
+      //     timeout = setTimeout(()=>{
+      //       fn.apply(context, ...args)
+      //       timeout = null
+      //     }, wait)
+      //   }
+      // }
 
       // function throttle(fn, wait){
       //   let context = null
