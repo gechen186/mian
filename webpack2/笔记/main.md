@@ -221,6 +221,7 @@ document.addEventListener('click', () => {
 
 ```
 npm install --save-dev mini-css-extract-plugin
+
 // webpack.prod.js
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 

@@ -3,13 +3,11 @@ import { createApp } from './app.js';
 export default context => {
   return new Promise((resolve, reject) => {
     const { app, store, router, App } = createApp();
-
     router.push(context.url);
 
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents();
 
-      console.log(context, 'context.url')
       console.log(matchedComponents)
 
       if (!matchedComponents.length) {

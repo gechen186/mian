@@ -11,10 +11,11 @@
 
 <script type='text/javascript'>
 function climb(num) {
-  let a = 1
-  let b = 1
+  let a = 3 
+  let b = 5
   for (let i = 0; i < num; i++) {
     [a,b] = [b, a+b]
+    
   }
   return a
 }

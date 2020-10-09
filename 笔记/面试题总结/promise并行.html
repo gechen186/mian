@@ -116,8 +116,8 @@
               .then((data) => {
                 setData(data, index, len)
               })
-              .catch((data) => {
-                setData(null, index, len)
+              .catch((err) => {
+                setData(err, index, len)
               });
           });
           }

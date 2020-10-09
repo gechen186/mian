@@ -27,7 +27,8 @@ backendRouter.get('*', (ctx, next) => {
   console.log('url', ctx.url);
 
   let context = {
-    url: ctx.url
+    url: ctx.url,
+    text: '12345'
   };
 
   const ssrStream = renderer.renderToStream(context);
@@ -45,19 +46,19 @@ backendApp.listen(3000, () => {
 });
 
 // 前端Server
-frontendApp.use(serve(path.resolve(__dirname, '../dist')));
+// frontendApp.use(serve(path.resolve(__dirname, '../dist')));
 
-frontendRouter.get('/index', (ctx, next) => {
-  let html = fs.readFileSync(path.resolve(__dirname, '../dist/index.html'), 'utf-8');
-  ctx.type = 'html';
-  ctx.status = 200;
-  ctx.body = html;
-});
+// frontendRouter.get('/index', (ctx, next) => {
+//   let html = fs.readFileSync(path.resolve(__dirname, '../dist/index.html'), 'utf-8');
+//   ctx.type = 'html';
+//   ctx.status = 200;
+//   ctx.body = html;
+// });
 
-frontendApp
-  .use(frontendRouter.routes())
-  .use(frontendRouter.allowedMethods());
+// frontendApp
+//   .use(frontendRouter.routes())
+//   .use(frontendRouter.allowedMethods());
 
-frontendApp.listen(3001, () => {
-  console.log('浏览器端渲染地址： http://localhost:3001');
-});
+// frontendApp.listen(3001, () => {
+//   console.log('浏览器端渲染地址： http://localhost:3001');
+// });

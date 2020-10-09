@@ -8,7 +8,7 @@ function createRouter() {
   const routes = [
     {
       path: '/bar',
-      component: Bar
+      component: () => import('../components/Bar.vue') 
     },
     {
       path: '/foo',

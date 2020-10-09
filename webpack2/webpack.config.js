@@ -3,6 +3,7 @@ const htmlPlugin = require("html-webpack-plugin"); // html模板 plugin
 const { CleanWebpackPlugin } = require("clean-webpack-plugin"); // 删除 dist的 plugin
 const ExtractTextPlugin = require("extract-text-webpack-plugin"); // 提取css
 const webpack = require("webpack");
+
 module.exports = {
   entry: {
     main: "./src/m.js",
