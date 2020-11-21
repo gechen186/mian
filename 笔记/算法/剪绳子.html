@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      /* 
+
+给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n>1并且m>1），
+每段绳子的长度记为 k[0],k[1]...k[m-1] 。请问 k[0]*k[1]*...*k[m-1] 可能的最大乘积是多少？
+例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。
+
+输入: 2
+输出: 1
+解释: 2 = 1 + 1, 1 × 1 = 1
+
+输入: 10
+输出: 36
+解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36
+
+ */
+      // 数字拆分 求乘积最大，尽量将数字拆分为 3，若余 1则将 1与最后一个 3相加
+      var cuttingRope = function (n) {
+        if (n === 2) {
+          return 1;
+        }
+        if (n === 3) {
+          return 2;
+        }
+        // 3,4
+        const a = Math.floor(n / 3);
+        // b是 2 的话是 8 这样的数字
+        const b = n % 3;
+        // 如果 b是0的话说明 n是 3的倍数
+
+        if (b === 0) {
+          return Math.pow(3, a);
+        }
+        // b是1的话说明是7,10这样的数字，会余1，因为1在乘法里没有用处，所以要将 1与最后一个 3相加变为4
+        if (b === 1) {
+          return Math.pow(3, a - 1 ) * 4;
+        }
+        if (b === 2) {
+          return Math.pow(3, a) * 2;
+        }
+      };
+    </script>
+  </body>
+</html>

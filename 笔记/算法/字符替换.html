@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      /*
+          输入：s = "We are happy."
+          输出："We%20are%20happy."
+      */
+      const s = "We are happy.";
+      function fn(s) {
+        const len = s.length
+        let result = ''
+        for (let i = 0; i < len; i++) {
+          let str = s.charAt(i)
+          console.log(str);
+          if(str === ' '){
+            result += '%'
+            result += '2'
+            result += '0'
+          }else{
+            result += str
+          }
+        }
+        return result
+      }
+      console.log(fn(s));
+    </script>
+  </body>
+</html>

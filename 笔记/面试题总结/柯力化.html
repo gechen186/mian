@@ -58,15 +58,17 @@
             args = [...args, ...newArgs];
             return _c;
           } else {
-            return fn.apply(this, args);
+            const res = fn.apply(this, args);
+            args = []
+            return res
           }
         };
       }
 
       let addCurry = currying(add);
       // 注意调用方式的变化
-      // console.log(addCurry(1)(2)(3)(4, 5)());
-      // console.log(addCurry(1, 2, 3, 4, 5)());
+      console.log(addCurry(1)(2)(3)(4, 5)());
+      console.log(addCurry(1, 2, 3, 4, 5)());
 
 
       // function argsSum(args) {

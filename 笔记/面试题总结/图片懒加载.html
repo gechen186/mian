@@ -86,13 +86,12 @@
     // scroll事件中 调用图片加载函数，并且在函数中判断当前 img DOM是否符合条件进行 src赋值
     window.onload = list.onscroll = function () {
       var isScrollAjax = list.scrollHeight - (list.scrollTop + 500)
-      console.log(list.scrollHeight , list.scrollTop);
-      if(isScrollAjax<500){
-        createImg()
-        imgDom = document.querySelectorAll("img");
-        imgDomArr = [...imgDom]
-        imgDomArr = imgDomArr.slice(imgDomArr.length-10)
-      }
+      // if(isScrollAjax<500){
+      //   createImg()
+      //   imgDom = document.querySelectorAll("img");
+      //   imgDomArr = [...imgDom]
+      //   imgDomArr = imgDomArr.slice(imgDomArr.length-10)
+      // }
       loadImg(imgDomArr)
     }
 

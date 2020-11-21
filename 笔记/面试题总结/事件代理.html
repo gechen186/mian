@@ -9,23 +9,27 @@
 </head>
 <body>
 <div id="list">
-  <div>1</div>
-  <div>2</div>
-  <div>3</div>
-  <div>4</div>
-  <div>5</div>
-  <div>6</div>
-  <div>7</div>
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+  <div class="item">5</div>
+  <div class="item">
+    <span id="right">右边</span>
+  </div>
+  <div class="item">7</div>
   <span>8</span>
 </div>
 <script type='text/javascript'>
   const list = document.getElementById('list')
   list.onclick = function (event) {
     const target = event.target || event.srcElement
-    if(target.matches('span')){
-      return
+    // if(target.matches('span')){
+    //   return
+    // }
+    if(target.className === 'item'){
+      console.log(target.innerText)
     }
-    console.log(target.innerText)
 
     // alert(target.nodeName)
   }

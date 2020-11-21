@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <script type="text/javascript">
+  /* 
+    1. 用一组任意的内存空间去存储数据元素（这里的内存空间可以是连续的，也可以是不连续的）
+    2. 每个节点(node)都由数据本身和一个指向后续节点的指针组成
+    3. 整个链表的存取必须从头指针开始，头指针指向第一个节点
+    4. 最后一个节点的指针指向空（NULL）
+  */
+      // 初始化节点
+      class Node {
+        constructor(key){
+          this.next = null
+          this.key = key
+        }
+      }
+      // 初始化链表
+      class List {
+        constructor(){
+          this.head = null
+        }
+      }
+    </script>
+  </body>
+</html>

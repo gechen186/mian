@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+var hanota = function (A, B, C) {
+    const move = (n, from, buffer, to) => { // 移动n层汉诺塔
+        if (n === 1) {
+            to.push(from.pop());
+        } else {
+            move(n - 1, from, to, buffer);
+            move(1, from, buffer, to);
+            move(n - 1, buffer, from, to);
+        }
+    }
+    move(A.length, A, B, C);
+    // move(3, [1,2,3], [], []);
+};
+hanota([1,2,3], [], [])
+</script>
+</body>
+</html>

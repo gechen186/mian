@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+
+/* 
+  输入：1->2->4, 1->3->4
+  输出：1->1->2->3->4->4
+*/
+// const arr1 = [1,2,4]
+// const arr2 = [1,3,4]
+// var mergeTwoLists = function(l1, l2) {
+//     if(l1 === null){
+//       return l2
+//     }
+//     if(l2 === null){
+//       return l1
+//     }
+//     if(l1.value < l2.value){
+//       l1.next = mergeTwoLists(l1.next, l2)
+//       return l1
+//     }else{
+//       l2.next = mergeTwoLists(l1, l2.next)
+//       return l2
+//     }
+// };
+
+//   console.log(mergeTwoLists(arr1, arr2));
+
+function fn(x) {
+  console.log(x);
+  if(x === 1){
+    return true
+  }
+ return fn(x-1)
+}
+
+console.log(fn(2));
+</script>
+</body>
+</html>

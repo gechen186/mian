@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+* {
+	padding: 0;
+	margin: 0;
+}
+.container {
+	width: 600px;
+	height: 300px;
+	display: flex;
+  background-color: yellow;
+}
+.left {
+	width: 500px;
+	padding: 40px;
+	flex-shrink: 2;
+	background: red;
+  /* box-sizing: border-box; */
+}
+.right {
+	width: 400px;
+	padding: 20px;
+	flex-shrink: 1;
+	background: blue;
+  /* box-sizing: border-box; */
+}
+/* 溢出 420  */
+
+/*
+   超出部分计算是实际所占空间   
+    不带 border和pading的是 总宽度 - (w1 + w2) 
+    带 border和pading的正常盒模型是 总宽度 - (实际w1所占 + 实际w2所占) 
+    带 border和pading的IE盒模型是 总宽度 - (实际w1所占 + 实际w2所占) 
+
+  flex-shrink
+    不带 border和pading的是 w1*shrink : w2*shrink
+    带 border和pading的正常盒模型是 ((实际w1所占- padding - border) *shrink ) : ((实际w2所占- padding - border) *shrink )
+    带 border和pading的IE盒模型是 总宽度 - ((实际w1所占- padding - border) *shrink ) : ((实际w2所占- padding - border) *shrink )
+  最终实际所占  （flex-shrink时计算比  b1  b2）
+    不带 border和pading的是 w1 - 溢出 * b1/b1+b2  w2 - 溢出 * b2/b1+b2
+    带 border和pading的正常盒模型是 (实际w1所占 - 溢出 * b1/b1+b2 ， ((w2- padding - border) *shrink )
+    带 border和pading的IE盒模型是 w1 - 溢出 * b1/b1+b2 
+ */
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="left">left</div>
+    <!-- 400  0.2666666667-->
+    <div class="right">right</div>
+ </div>
+ 
+<script type='text/javascript'>
+/* 压缩权重1200 */
+// 0.715  0.285
+// flex-shrink 溢出空间
+/* 
+三个flex item元素的width: w1, w2, w3
+三个flex item元素的flex-shrink：a, b, c
+计算总压缩权重：sum = a * w1 + b * w2 + c * w3
+计算每个元素压缩率：S1 = a * w1 / sum，S2 =b * w2 / sum，S3 =c * w3 / sum
+计算每个元素宽度：width - 压缩率 * 溢出空间
+*/
+
+</script>
+</body>
+</html>

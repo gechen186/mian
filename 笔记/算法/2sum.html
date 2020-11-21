@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Title</title>
+<style type='text/css'>
+
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+var nums = [2,7,11,15,10]
+function sum(nums, target) {
+  let i = nums.length
+  while(i > 1){
+    let last = nums.pop()
+    let num = nums.indexOf(target - last)
+    if(num>-1){
+      return[num, nums.length]
+    }
+    i--
+  }
+}
+
+console.log(sum(nums, 25));
+</script>
+</body>
+</html>

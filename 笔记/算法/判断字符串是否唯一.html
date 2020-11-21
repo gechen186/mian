@@ -14,11 +14,16 @@ var isUnique = function(astr) {
     astr = astr.split('')
     const len = astr.length
     for(let i=0; i<len; i++){
-        for(let j=i+1;j<len;j++){
-            if(astr[i] === astr[j]){
-                return false;
-            }
-        }
+      const str = astr.shift()
+      if(astr.indexOf(str)>-1){
+        return false
+      }
+        // for(let j=1+i;j<len;j++){
+        //   console.log(j);
+        //     if(astr[i] === astr[j]){
+        //         return false;
+        //     }
+        // }
     }
     return true
 };
