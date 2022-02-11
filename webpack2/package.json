@@ -28,7 +28,7 @@
     "lodash": "^4.17.20",
     "lodash-es": "^4.17.15",
     "mini-css-extract-plugin": "^0.11.2",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "postcss-loader": "^4.0.2",
     "sass-loader": "^7.3.1",
     "style-loader": "^1.2.1",
